@@ -197,6 +197,31 @@ namespace Jinete.Controllers
             return View(model);
         }
 
+        [Authorize(Roles = "Administrator")]
+        public ActionResult Delete(string id = null)
+        {
+            //var Db = DatabaseFactory.Get();
+            var user = db.Users.First(u => u.Id == id);
+            var model = new EditUserViewModel(user);
+            if (user == null)
+            {
+                return HttpNotFound();
+            }
+            return View(model);
+        }
+
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Administrator")]
+        public ActionResult DeleteConfirmed(string id)
+        {
+            //var Db = DatabaseFactory.Get();
+            var user = db.Users.First(u => u.Id == id);
+            db.Users.Remove(user);
+            db.SaveChanges();
+            return RedirectToAction("Index");
+        }
+
         [Authorize(Roles = "Administrator, Manager")]
         public ActionResult UserRoles(string id)
         {
@@ -317,7 +342,7 @@ namespace Jinete.Controllers
                 {
                     return View("ExternalLoginFailure");
                 }
-                var user = new ApplicationUser() { UserName = model.UserName };
+                var user = new ApplicationUser() { UserName = model.UserName, Email = model.Email };
                 var result = await UserManager.CreateAsync(user);
                 if (result.Succeeded)
                 {
