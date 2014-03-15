@@ -1,0 +1,99 @@
+﻿@model IEnumerable<Jinete.Models.Notebook>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.ComputerName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PersonFirstName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PersonLastName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Phone)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Address)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.City)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.State)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Zip)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Email)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.dtCheckedOut)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.dtReturned)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.checkedIn)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.ComputerName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PersonFirstName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PersonLastName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Phone)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Address)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.City)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.State)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Zip)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Email)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.dtCheckedOut)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.dtReturned)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.checkedIn)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.NotebookId }) |
+            @Html.ActionLink("Details", "Details", new { id=item.NotebookId }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.NotebookId })
+        </td>
+    </tr>
+}
+
+</table>

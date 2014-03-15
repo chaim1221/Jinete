@@ -1,0 +1,48 @@
+﻿@using Jinete.Models
+@model IEnumerable<UserSettingsViewModel>
+@{
+    ViewBag.Title = "Index";
+}
+<div class="partial-background-white index-padding-thick">
+    <h2>Machete Configuration Page</h2>
+    <p style="color:red;">
+        <strong>@Html.ValidationSummary()</strong>
+    </p>
+    <p>
+        @Html.ActionLink("Manage Current User", "Manage", "Account", routeValues: null, htmlAttributes: new { title = "Manage", @class = "button-standard" })
+    </p>
+    <h3>Users Table</h3>
+    <table>
+        <tr>
+            <th></th>
+            <th>
+                UserName
+            </th>
+            <th>
+                Email
+            </th>
+        </tr>
+
+        @foreach (UserSettingsViewModel item in Model)
+        {
+            <tr>
+                <td class="tb-cell-nospace">
+                    @Html.ActionLink("Delete", "Delete", "Account", new { id = item.ProviderUserKey }, htmlAttributes: new { @class = "a-block-nodecoration" })
+                    @Html.ActionLink("Roles", "UserRoles", "Account", new { id = item.ProviderUserKey }, htmlAttributes: new { @class = "a-block-nodecoration" })
+                </td>
+                <td class="tb-cell-bigger-text">
+                    @item.UserName
+                </td>
+                <td class="tb-cell-bigger-text">
+                    @item.Email
+                </td>
+            </tr>
+        }
+
+    </table>
+</div>
+<script>
+    $(document).ready(function () {
+        $('.button-standard').button();
+    });
+</script>
