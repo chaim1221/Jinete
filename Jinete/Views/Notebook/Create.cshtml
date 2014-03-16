@@ -1,4 +1,5 @@
-﻿@model Jinete.Models.Notebook
+﻿@using Jinete.ViewModels
+@model NotebookViewModel
 
 @{
     ViewBag.Title = "Create";
@@ -13,102 +14,106 @@
     
     <div class="form-horizontal">
         <h4>Notebook</h4>
+        @foreach (var item in Model._firstNames)
+        { 
+            <p>@Html.DisplayFor(model => model._firstNames) @Html.DisplayFor(model => model._lastNames) @Html.DisplayFor(model => model._userIds)</p>
+        }
         <hr />
         @Html.ValidationSummary(true)
 
         <div class="form-group">
-            @Html.LabelFor(model => model.ComputerName, new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model._notebook.ComputerName, new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.ComputerName)
-                @Html.ValidationMessageFor(model => model.ComputerName)
+                @Html.EditorFor(model => model._notebook.ComputerName)
+                @Html.ValidationMessageFor(model => model._notebook.ComputerName)
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.PersonFirstName, new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model._notebook.PersonFirstName, new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.PersonFirstName)
-                @Html.ValidationMessageFor(model => model.PersonFirstName)
+                @Html.EditorFor(model => model._notebook.PersonFirstName)
+                @Html.ValidationMessageFor(model => model._notebook.PersonFirstName)
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.PersonLastName, new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model._notebook.PersonLastName, new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.PersonLastName)
-                @Html.ValidationMessageFor(model => model.PersonLastName)
+                @Html.EditorFor(model => model._notebook.PersonLastName)
+                @Html.ValidationMessageFor(model => model._notebook.PersonLastName)
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.Phone, new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model._notebook.Phone, new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Phone)
-                @Html.ValidationMessageFor(model => model.Phone)
+                @Html.EditorFor(model => model._notebook.Phone)
+                @Html.ValidationMessageFor(model => model._notebook.Phone)
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.Address, new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model._notebook.Address, new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Address)
-                @Html.ValidationMessageFor(model => model.Address)
+                @Html.EditorFor(model => model._notebook.Address)
+                @Html.ValidationMessageFor(model => model._notebook.Address)
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.City, new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model._notebook.City, new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.City)
-                @Html.ValidationMessageFor(model => model.City)
+                @Html.EditorFor(model => model._notebook.City)
+                @Html.ValidationMessageFor(model => model._notebook.City)
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.State, new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model._notebook.State, new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.State)
-                @Html.ValidationMessageFor(model => model.State)
+                @Html.EditorFor(model => model._notebook.State)
+                @Html.ValidationMessageFor(model => model._notebook.State)
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.Zip, new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model._notebook.Zip, new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Zip)
-                @Html.ValidationMessageFor(model => model.Zip)
+                @Html.EditorFor(model => model._notebook.Zip)
+                @Html.ValidationMessageFor(model => model._notebook.Zip)
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.Email, new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model._notebook.Email, new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Email)
-                @Html.ValidationMessageFor(model => model.Email)
+                @Html.EditorFor(model => model._notebook.Email)
+                @Html.ValidationMessageFor(model => model._notebook.Email)
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.dtCheckedOut, new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model._notebook.dtCheckedOut, new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.dtCheckedOut)
-                @Html.ValidationMessageFor(model => model.dtCheckedOut)
+                @Html.EditorFor(model => model._notebook.dtCheckedOut)
+                @Html.ValidationMessageFor(model => model._notebook.dtCheckedOut)
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.dtReturned, new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model._notebook.dtReturned, new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.dtReturned)
-                @Html.ValidationMessageFor(model => model.dtReturned)
+                @Html.EditorFor(model => model._notebook.dtReturned)
+                @Html.ValidationMessageFor(model => model._notebook.dtReturned)
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.checkedIn, new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model._notebook.checkedIn, new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.checkedIn)
-                @Html.ValidationMessageFor(model => model.checkedIn)
+                @Html.EditorFor(model => model._notebook.checkedIn)
+                @Html.ValidationMessageFor(model => model._notebook.checkedIn)
             </div>
         </div>
 

@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using Jinete.Models;
+using Jinete.ViewModels;
 
 namespace Jinete.Controllers
 {
@@ -41,7 +42,19 @@ namespace Jinete.Controllers
         [Authorize(Roles = "Administrator, Manager")]
         public ActionResult Create()
         {
-            return View();
+            NotebookViewModel notebookEditor = new NotebookViewModel();
+            var userInfo = db.Users.Select(x => new {
+                    firstName = x.FirstName,
+                    lastName = x.LastName,
+                    userId = x.Id
+                })
+                .ToList();
+
+            notebookEditor._firstNames = userInfo.Select(x => x.firstName).ToList();
+            notebookEditor._lastNames = userInfo.Select(x => x.lastName).ToList();
+            notebookEditor._userIds = userInfo.Select(x => x.userId).ToList();
+
+            return View(notebookEditor);
         }
 
         // POST: /Notebook/Create
@@ -50,7 +63,7 @@ namespace Jinete.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Administrator, Manager")]
-        public ActionResult Create([Bind(Include = "NotebookId,ComputerName,PersonFirstName,PersonLastName,Phone,Address,City,State,Zip,Email,dtCheckedOut,dtReturned,checkedIn")] Notebook notebook)
+        public ActionResult Create([Bind(Include = "NotebookId,ComputerName,PersonFirstName,PersonLastName,UserId,Phone,Address,City,State,Zip,Email,dtCheckedOut,dtReturned,checkedIn")] Notebook notebook)
         {
             if (ModelState.IsValid)
             {

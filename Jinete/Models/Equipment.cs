@@ -18,6 +18,8 @@ namespace Jinete.Models
         [DisplayName("Last Name")]
         public string PersonLastName { get; set; }
         [Required]
+        public string UserID { get; set; }
+        [Required]
         [DisplayName("Phone")]
         [DataType(DataType.PhoneNumber)]
         public string Phone { get; set; }
@@ -26,7 +28,7 @@ namespace Jinete.Models
         [Required]
         public string City { get; set; }
         [Required]
-        [MaxLength(2, ErrorMessage="Please enter a state code, such as \"WA\".")]
+        [MaxLength(2, ErrorMessage = "Please enter a state code, such as \"WA\".")]
         public string State { get; set; }
         [Required]
         [DataType(DataType.PostalCode)]

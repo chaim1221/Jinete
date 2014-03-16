@@ -172,8 +172,13 @@
     <Compile Include="Migrations\201403142342258_UserEmail.Designer.cs">
       <DependentUpon>201403142342258_UserEmail.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201403160523434_NamesRequired.cs" />
+    <Compile Include="Migrations\201403160523434_NamesRequired.Designer.cs">
+      <DependentUpon>201403160523434_NamesRequired.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\EquipmentViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\Equipment.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -253,6 +258,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201403142342258_UserEmail.resx">
       <DependentUpon>201403142342258_UserEmail.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201403160523434_NamesRequired.resx">
+      <DependentUpon>201403160523434_NamesRequired.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
