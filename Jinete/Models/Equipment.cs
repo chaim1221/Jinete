@@ -5,12 +5,27 @@ using System.Globalization;
 
 namespace Jinete.Models
 {
-    public class Notebook
+    public abstract class Equipment : CheckoutInfo
     {
-        public int NotebookId { get; set; }
         [Required]
-        [DisplayName("Notebook")]
-        public string ComputerName { get; set; }
+        [DisplayName("Name")]
+        public string EquipmentName { get; set; }
+        [Required]
+        [DisplayName("Serial Number")]
+        public string SerialNumber { get; set; }
+        [Required]
+        [DisplayName("Checked Out")]
+        [DataType(DataType.DateTime)]
+        public DateTime dtCheckedOut { get; set; }
+        [DisplayName("Checked In")]
+        [DataType(DataType.DateTime)]
+        public DateTime? dtReturned { get; set; }
+        [DisplayName("[X]")]
+        public bool checkedIn { get; set; }
+    }
+
+    public class CheckoutInfo
+    {
         [Required]
         [DisplayName("First Name")]
         public string PersonFirstName { get; set; }
@@ -36,14 +51,10 @@ namespace Jinete.Models
         [DataType(DataType.EmailAddress)]
         [Required]
         public string Email { get; set; }
-        [Required]
-        [DisplayName("Checked Out")]
-        [DataType(DataType.DateTime)]
-        public DateTime dtCheckedOut { get; set; }
-        [DisplayName("Checked In")]
-        [DataType(DataType.DateTime)]
-        public DateTime? dtReturned { get; set; }
-        [DisplayName("[X]")]
-        public bool checkedIn { get; set; }
+    }
+
+    public class Notebook : Equipment 
+    {
+        public int NotebookId { get; set; }
     }
 }

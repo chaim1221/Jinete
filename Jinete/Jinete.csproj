@@ -177,6 +177,10 @@
     <Compile Include="Migrations\201403160523434_NamesRequired.Designer.cs">
       <DependentUpon>201403160523434_NamesRequired.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201403170706027_EquipmentRefactor.cs" />
+    <Compile Include="Migrations\201403170706027_EquipmentRefactor.Designer.cs">
+      <DependentUpon>201403170706027_EquipmentRefactor.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\EquipmentViewModels.cs" />
@@ -262,6 +266,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201403160523434_NamesRequired.resx">
       <DependentUpon>201403160523434_NamesRequired.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201403170706027_EquipmentRefactor.resx">
+      <DependentUpon>201403170706027_EquipmentRefactor.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -14,18 +14,14 @@
     
     <div class="form-horizontal">
         <h4>Notebook</h4>
-        @foreach (var item in Model._firstNames)
-        { 
-            <p>@Html.DisplayFor(model => model._firstNames) @Html.DisplayFor(model => model._lastNames) @Html.DisplayFor(model => model._userIds)</p>
-        }
         <hr />
         @Html.ValidationSummary(true)
 
         <div class="form-group">
-            @Html.LabelFor(model => model._notebook.ComputerName, new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model._notebook.EquipmentName, new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model._notebook.ComputerName)
-                @Html.ValidationMessageFor(model => model._notebook.ComputerName)
+                @Html.EditorFor(model => model._notebook.EquipmentName)
+                @Html.ValidationMessageFor(model => model._notebook.EquipmentName)
             </div>
         </div>
 

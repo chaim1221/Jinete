@@ -18,10 +18,10 @@
         @Html.HiddenFor(model => model.NotebookId)
 
         <div class="form-group">
-            @Html.LabelFor(model => model.ComputerName, new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.EquipmentName, new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.ComputerName)
-                @Html.ValidationMessageFor(model => model.ComputerName)
+                @Html.EditorFor(model => model.EquipmentName)
+                @Html.ValidationMessageFor(model => model.EquipmentName)
             </div>
         </div>
 
