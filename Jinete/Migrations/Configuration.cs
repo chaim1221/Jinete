@@ -18,15 +18,18 @@ namespace Jinete.Migrations
         bool AddUserAndRole(ApplicationDbContext context)
         {
             IdentityResult ir;
-            var rm = new RoleManager<IdentityRole>
-                (new RoleStore<IdentityRole>(context));
-            //ir = rm.Create(new IdentityRole("Administrator"));
+            //Uncomment the following lines to add roles:
+            //var rm = new RoleManager<IdentityRole>
+            //    (new RoleStore<IdentityRole>(context));
+            //ir = rm.Create(new IdentityRole("Administrator")); // <=
             //ir = rm.Create(new IdentityRole("Manager"));
             var um = new UserManager<ApplicationUser>(
                 new UserStore<ApplicationUser>(context));
             var user = new ApplicationUser()
             {
                 UserName = "",
+                FirstName = "",
+                LastName = "",
                 Email = ""
             };
             ir = um.Create(user, "");
@@ -38,6 +41,7 @@ namespace Jinete.Migrations
 
         protected override void Seed(ApplicationDbContext context)
         {
+            var result = AddUserAndRole(context);
         }
     }
 }
