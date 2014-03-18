@@ -6,20 +6,43 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Routing;
 using Jinete.Models;
+using Jinete.ModelExtensions;
 using Jinete.ViewModels;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace Jinete.Controllers
 {
     public class NotebookController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
+        private UserManager<ApplicationUser> um;
+
+        protected override void Initialize(RequestContext requestContext)
+        {
+            base.Initialize(requestContext);
+            um = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(db));
+        }
 
         // GET: /Notebook/
         [Authorize(Roles = "Administrator, Manager")]
         public ActionResult Index()
         {
-            return View(db.Notebooks.ToList());
+            List<NotebookViewModel> notebookList = new List<NotebookViewModel>();
+            var notes = db.Notebooks.ToList();
+
+            foreach(Notebook note in notes)
+            {
+                NotebookViewModel noteView = new NotebookViewModel();
+                ApplicationUser _user = um.FindById(note.ApplicationUserId);
+                noteView._notebook = note;
+                noteView._username = _user.FirstName + " " + _user.LastName;
+                notebookList.Add(noteView);
+            }
+
+            return View(notebookList.AsEnumerable());
         }
 
         // GET: /Notebook/Details/5
@@ -42,19 +65,10 @@ namespace Jinete.Controllers
         [Authorize(Roles = "Administrator, Manager")]
         public ActionResult Create()
         {
-            NotebookViewModel notebookEditor = new NotebookViewModel();
-            var userInfo = db.Users.Select(x => new {
-                    firstName = x.FirstName,
-                    lastName = x.LastName,
-                    userId = x.Id
-                })
-                .ToList();
-
-            notebookEditor._firstNames = userInfo.Select(x => x.firstName).ToList();
-            notebookEditor._lastNames = userInfo.Select(x => x.lastName).ToList();
-            notebookEditor._userIds = userInfo.Select(x => x.userId).ToList();
-
-            return View(notebookEditor);
+            NotebookCreateModel model = new NotebookCreateModel();
+            List<ApplicationUser> users = db.Users.ToList();
+            model.Users = new SelectList(users.AsEnumerable(), "Id", "FirstName" + " " + "LastName");
+            return View(model);
         }
 
         // POST: /Notebook/Create

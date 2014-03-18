@@ -15,12 +15,35 @@ namespace Jinete.Models
     public class ExternalLoginConfirmationViewModel
     {
         [Required]
-        [Display(Name = "User name")]
         public string UserName { get; set; }
         [Required]
+        [Display(Name = "Email Address")]
         [DataType(DataType.EmailAddress)]
-        [Display(Name = "Email")]
         public string Email { get; set; }
+        [Required]
+        [Display(Name = "First Name")]
+        public string FirstName { get; set; }
+        [Required]
+        [Display(Name = "Last Name")]
+        public string LastName { get; set; }
+        [Required]
+        [DataType(DataType.PhoneNumber)]
+        [Display(Name = "Phone Number")]
+        public string Phone { get; set; }
+        [Required]
+        [Display(Name = "Address")]
+        public string Address { get; set; }
+        [Required]
+        [Display(Name = "City")]
+        public string City { get; set; }
+        [Required]
+        [Display(Name = "State")]
+        [MaxLength(2, ErrorMessage = "Please enter a state code, such as \"WA\".")]
+        public string State { get; set; }
+        [Required]
+        [DataType(DataType.PostalCode)]
+        [Display(Name = "Zip")]
+        public string Zip { get; set; }
     }
 
     public class ManageUserViewModel
@@ -40,6 +63,35 @@ namespace Jinete.Models
         [Display(Name = "Confirm new password")]
         [Compare("NewPassword", ErrorMessage = "The new password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
+
+        [Required]
+        [Display(Name = "Email Address")]
+        [DataType(DataType.EmailAddress)]
+        public string Email { get; set; }
+        [Required]
+        [Display(Name = "First Name")]
+        public string FirstName { get; set; }
+        [Required]
+        [Display(Name = "Last Name")]
+        public string LastName { get; set; }
+        [Required]
+        [DataType(DataType.PhoneNumber)]
+        [Display(Name = "Phone Number")]
+        public string Phone { get; set; }
+        [Required]
+        [Display(Name = "Address")]
+        public string Address { get; set; }
+        [Required]
+        [Display(Name = "City")]
+        public string City { get; set; }
+        [Required]
+        [Display(Name = "State")]
+        [MaxLength(2, ErrorMessage = "Please enter a state code, such as \"WA\".")]
+        public string State { get; set; }
+        [Required]
+        [DataType(DataType.PostalCode)]
+        [Display(Name = "Zip")]
+        public string Zip { get; set; }
     }
 
     public class LoginViewModel
@@ -60,9 +112,44 @@ namespace Jinete.Models
     public class RegisterViewModel
     {
         [Required]
-        [Display(Name = "User name")]
         public string UserName { get; set; }
 
+        [Required]
+        [Display(Name = "Email Address")]
+        [DataType(DataType.EmailAddress)]
+        public string Email { get; set; }
+        
+        [Required]
+        [Display(Name = "First Name")]
+        public string FirstName { get; set; }
+        
+        [Required]
+        [Display(Name = "Last Name")]
+        public string LastName { get; set; }
+        
+        [Required]
+        [DataType(DataType.PhoneNumber)]
+        [Display(Name = "Phone Number")]
+        public string Phone { get; set; }
+        
+        [Required]
+        [Display(Name = "Address")]
+        public string Address { get; set; }
+        
+        [Required]
+        [Display(Name = "City")]
+        public string City { get; set; }
+        
+        [Required]
+        [Display(Name = "State")]
+        [MaxLength(2, ErrorMessage = "Please enter a state code, such as \"WA\".")]
+        public string State { get; set; }
+        
+        [Required]
+        [DataType(DataType.PostalCode)]
+        [Display(Name = "Zip")]
+        public string Zip { get; set; }
+        
         [Required]
         [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
         [DataType(DataType.Password)]
@@ -87,20 +174,54 @@ namespace Jinete.Models
         }
 
         [Required]
-        [Display(Name = "User Name")]
+        [Display(Name = "Account Name")]
         public string UserName { get; set; }
 
         [Required]
+        [Display(Name = "Email Address")]
+        [DataType(DataType.EmailAddress)]
         public string Email { get; set; }
 
+        [Required]
+        [Display(Name = "First Name")]
+        public string FirstName { get; set; }
+
+        [Required]
+        [Display(Name = "Last Name")]
+        public string LastName { get; set; }
+
+        [Required]
+        [DataType(DataType.PhoneNumber)]
+        [Display(Name = "Phone Number")]
+        public string Phone { get; set; }
+
+        [Required]
+        [Display(Name = "Address")]
+        public string Address { get; set; }
+
+        [Required]
+        [Display(Name = "City")]
+        public string City { get; set; }
+
+        [Required]
+        [Display(Name = "State")]
+        [MaxLength(2, ErrorMessage = "Please enter a state code, such as \"WA\".")]
+        public string State { get; set; }
+
+        [Required]
+        [DataType(DataType.PostalCode)]
+        [Display(Name = "Zip")]
+        public string Zip { get; set; }
+
+        [Required]
         [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
         [DataType(DataType.Password)]
-        [Display(Name = "New password")]
-        public string NewPassword { get; set; }
+        [Display(Name = "Password")]
+        public string Password { get; set; }
 
         [DataType(DataType.Password)]
-        [Display(Name = "Confirm new password")]
-        [Compare("NewPassword", ErrorMessage = "The new password and confirmation password do not match.")]
+        [Display(Name = "Confirm password")]
+        [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
 
         public string Id { get; set; }

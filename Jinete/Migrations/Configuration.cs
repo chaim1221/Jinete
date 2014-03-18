@@ -28,9 +28,14 @@ namespace Jinete.Migrations
             var user = new ApplicationUser()
             {
                 UserName = "",
+                Email = "",
                 FirstName = "",
                 LastName = "",
-                Email = ""
+                Phone = "",
+                Address = "",
+                City = "",
+                State = "",
+                Zip = ""
             };
             ir = um.Create(user, "");
             if (ir.Succeeded == false)

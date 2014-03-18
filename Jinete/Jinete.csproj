@@ -155,6 +155,11 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="App_GlobalResources\Equipment.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Equipment.resx</DependentUpon>
+    </Compile>
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
@@ -181,11 +186,16 @@
     <Compile Include="Migrations\201403170706027_EquipmentRefactor.Designer.cs">
       <DependentUpon>201403170706027_EquipmentRefactor.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201403180441158_MappingDatabase.cs" />
+    <Compile Include="Migrations\201403180441158_MappingDatabase.Designer.cs">
+      <DependentUpon>201403180441158_MappingDatabase.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\EquipmentViewModels.cs" />
+    <Compile Include="Models\Extensions.cs" />
     <Compile Include="Models\IdentityModels.cs" />
-    <Compile Include="Models\Equipment.cs" />
+    <Compile Include="Models\EquipmentModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -212,7 +222,9 @@
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\_references.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
@@ -258,6 +270,10 @@
     <None Include="Project_Readme.html" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_GlobalResources\Equipment.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>Equipment.Designer.cs</LastGenOutput>
+    </Content>
     <EmbeddedResource Include="Migrations\201403142115092_Initial.resx">
       <DependentUpon>201403142115092_Initial.cs</DependentUpon>
     </EmbeddedResource>
@@ -269,6 +285,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201403170706027_EquipmentRefactor.resx">
       <DependentUpon>201403170706027_EquipmentRefactor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201403180441158_MappingDatabase.resx">
+      <DependentUpon>201403180441158_MappingDatabase.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

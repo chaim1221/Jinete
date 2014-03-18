@@ -1,4 +1,6 @@
-﻿@model IEnumerable<Jinete.Models.Notebook>
+﻿@using Jinete.ViewModels
+@using Resources
+@model IEnumerable<NotebookViewModel>
 
 @{
     ViewBag.Title = "Index";
@@ -12,86 +14,60 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.EquipmentName)
+            @Equipment.EquipmentName
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.PersonFirstName)
+            @Equipment.UserName
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.PersonLastName)
+            @Equipment.LastCheckedOut
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Phone)
+            @Equipment.LastCheckedIn
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Address)
+            @Equipment.Sold
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.City)
+            @Equipment.Discarded
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.State)
+            @Equipment.LostOrStolen
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Zip)
+            @Equipment.SerialNumber
         </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Email)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.dtCheckedOut)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.dtReturned)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.checkedIn)
-        </th>
-        <th></th>
     </tr>
 
 @foreach (var item in Model) {
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.EquipmentName)
+            @Html.ActionLink("Details", "Details", new { id = item._notebook.NotebookId })<br />
+            @Html.ActionLink("Edit", "Edit", new { id = item._notebook.NotebookId })<br />
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.PersonFirstName)
+            @Html.DisplayFor(modelItem => item._notebook.EquipmentName)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.PersonLastName)
+            @Html.DisplayFor(modelItem => item._username)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Phone)
+            @Html.DisplayFor(modelItem => item._lastcheckout.dtCheckedOut);
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Address)
+            @Html.DisplayFor(modelItem => item._lastcheckout.dtReturned);
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.City)
+            @Html.DisplayFor(modelItem => item._sold.dtSold)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.State)
+            @Html.DisplayFor(modelItem => item._notebook.Discarded)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Zip)
+            @Html.DisplayFor(modelItem => item._notebook.LostOrStolen)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Email)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.dtCheckedOut)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.dtReturned)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.checkedIn)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.NotebookId }) |
-            @Html.ActionLink("Details", "Details", new { id=item.NotebookId }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.NotebookId })
+            @Html.DisplayFor(modelItem => item._notebook.SerialNumber)
         </td>
     </tr>
 }

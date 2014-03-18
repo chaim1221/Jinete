@@ -35,6 +35,13 @@ namespace Jinete.Models
         {
         }
 
+        public System.Data.Entity.DbSet<Jinete.Models.Checkout> Checkouts { get; set; }
+        public System.Data.Entity.DbSet<Jinete.Models.Sale> Sales { get; set; }
+        public System.Data.Entity.DbSet<Jinete.Models.Desktop> Desktops { get; set; }
+        public System.Data.Entity.DbSet<Jinete.Models.Laptop> Laptops { get; set; }
+        public System.Data.Entity.DbSet<Jinete.Models.Monitor> Monitors { get; set; }
         public System.Data.Entity.DbSet<Jinete.Models.Notebook> Notebooks { get; set; }
+        public System.Data.Entity.DbSet<Jinete.Models.Printer> Printers { get; set; }
+        public System.Data.Entity.DbSet<Jinete.Models.Tablet> Tablets { get; set; }
     }
 }
