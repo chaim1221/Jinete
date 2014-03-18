@@ -171,6 +171,13 @@ namespace Jinete.Models
         {
             this.UserName = user.UserName;
             this.Email = user.Email;
+            this.FirstName = user.FirstName;
+            this.LastName = user.LastName;
+            this.Phone = user.Phone;
+            this.Address = user.Address;
+            this.City = user.City;
+            this.State = user.State;
+            this.Zip = user.Zip;
         }
 
         [Required]

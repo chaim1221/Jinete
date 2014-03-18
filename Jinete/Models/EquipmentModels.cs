@@ -86,4 +86,19 @@ namespace Jinete.Models
     {
         public int TabletId { get; set; }
     }
+
+    public class Telephone : Equipment
+    {
+        public int TelephoneId { get; set; }
+    }
+
+    public class MobilePhone : Equipment
+    {
+        public int MobilePhoneId { get; set; }
+    }
+
+    public class Camera : Equipment
+    {
+        public int CameraId { get; set; }
+    }
 }

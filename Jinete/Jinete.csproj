@@ -190,6 +190,10 @@
     <Compile Include="Migrations\201403180441158_MappingDatabase.Designer.cs">
       <DependentUpon>201403180441158_MappingDatabase.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201403180705303_SmallDevices.cs" />
+    <Compile Include="Migrations\201403180705303_SmallDevices.Designer.cs">
+      <DependentUpon>201403180705303_SmallDevices.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\EquipmentViewModels.cs" />
@@ -288,6 +292,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201403180441158_MappingDatabase.resx">
       <DependentUpon>201403180441158_MappingDatabase.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201403180705303_SmallDevices.resx">
+      <DependentUpon>201403180705303_SmallDevices.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
