@@ -22,6 +22,7 @@ namespace Jinete.Models
         [DisplayName("Lost or stolen on")]
         public DateTime? LostOrStolen { get; set; }
 
+        [Required]
         public string ApplicationUserId { get; set; }
         public virtual ICollection<int> CheckoutId { get; set; }
         public int? SaleId { get; set; }

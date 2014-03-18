@@ -19,7 +19,6 @@ namespace Jinete.ViewModels
 
     public class NotebookCreateModel : Notebook
     {
-        [Required]
         [DisplayName("User")]
         public IEnumerable<SelectListItem> Users { get; set; }
     }

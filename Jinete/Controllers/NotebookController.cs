@@ -67,7 +67,10 @@ namespace Jinete.Controllers
         {
             NotebookCreateModel model = new NotebookCreateModel();
             List<ApplicationUser> users = db.Users.ToList();
-            model.Users = new SelectList(users.AsEnumerable(), "Id", "FirstName" + " " + "LastName");
+            string selectId = users.Where(x => x.Id == User.Identity.GetUserId()).Select(x => x.Id).First();
+            IEnumerable<SelectListItem> selectList = users.AsEnumerable()
+                .ToSelectListItems(selectId);
+            model.Users = new SelectList(selectList, "Value", "Text", selectId);
             return View(model);
         }
 
@@ -77,16 +80,17 @@ namespace Jinete.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Administrator, Manager")]
-        public ActionResult Create([Bind(Include = "NotebookId,ComputerName,PersonFirstName,PersonLastName,UserId,Phone,Address,City,State,Zip,Email,dtCheckedOut,dtReturned,checkedIn")] Notebook notebook)
+        public ActionResult Create(NotebookCreateModel model)
         {
             if (ModelState.IsValid)
             {
-                db.Notebooks.Add(notebook);
+                Notebook _notebook = (Notebook)model;
+                db.Notebooks.Add(_notebook);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            return View(notebook);
+            return View(model);
         }
 
         // GET: /Notebook/Edit/5

@@ -16,7 +16,7 @@ namespace Jinete.ModelExtensions
                 {
                     Selected = (user.Id == selectedId),
                     Text = user.FirstName + " " + user.LastName,
-                    Value = user.FirstName + " " + user.LastName
+                    Value = user.Id.ToString()
                 });
         }
     }
