@@ -38,8 +38,6 @@ namespace Jinete.Models
         [DisplayName("Checked In")]
         [DataType(DataType.DateTime)]
         public DateTime? dtReturned { get; set; }
-        [DisplayName("At Casa Latina")]
-        public bool checkedIn { get; set; }
     }
 
     public class Sale

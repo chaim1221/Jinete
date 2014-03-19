@@ -198,6 +198,10 @@
     <Compile Include="Migrations\201403182023495_DropDownsSuck.Designer.cs">
       <DependentUpon>201403182023495_DropDownsSuck.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201403182338382_EditViewModels.cs" />
+    <Compile Include="Migrations\201403182338382_EditViewModels.Designer.cs">
+      <DependentUpon>201403182338382_EditViewModels.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\EquipmentViewModels.cs" />
@@ -302,6 +306,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201403182023495_DropDownsSuck.resx">
       <DependentUpon>201403182023495_DropDownsSuck.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201403182338382_EditViewModels.resx">
+      <DependentUpon>201403182338382_EditViewModels.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

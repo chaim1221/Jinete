@@ -22,4 +22,26 @@ namespace Jinete.ViewModels
         [DisplayName("User")]
         public IEnumerable<SelectListItem> Users { get; set; }
     }
+
+    public class NotebookEditModel
+    {
+        public Notebook _notebook { get; set; }
+        public List<CheckoutViewModel> _checkouts { get; set; }
+        public Sale _sale { get; set; }
+        
+        [DisplayName("User")]
+        public IEnumerable<SelectListItem> Users { get; set; }
+        public string UserId { get; set; }
+    }
+
+    public class CheckoutViewModel : Checkout
+    {
+        public string Username { get; set; }
+    }
+
+    public class CheckoutCreateModel : Checkout
+    {
+        [DisplayName("User")]
+        public IEnumerable<SelectListItem> Users { get; set; }
+    }
 }

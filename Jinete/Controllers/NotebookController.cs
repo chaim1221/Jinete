@@ -90,6 +90,13 @@ namespace Jinete.Controllers
                 return RedirectToAction("Index");
             }
 
+            // Validation failed, reassign the list without assigning anything
+            List<ApplicationUser> users = db.Users.ToList();
+            string selectId = users.Single(x => x.Id == model.ApplicationUserId).Id;
+            IEnumerable<SelectListItem> selectList = users.AsEnumerable()
+                .ToSelectListItems(selectId);
+            model.Users = new SelectList(selectList, "Value", "Text", selectId);
+
             return View(model);
         }
 
@@ -101,12 +108,33 @@ namespace Jinete.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Notebook notebook = db.Notebooks.Find(id);
-            if (notebook == null)
+
+            NotebookEditModel model = new NotebookEditModel();
+            model._notebook = db.Notebooks.Find(id); ;
+            if (model._notebook == null)
             {
                 return HttpNotFound();
             }
-            return View(notebook);
+
+            List<ApplicationUser> users = db.Users.ToList();
+
+            // Grabbing the user here for the benefit of the "Details" view. We do not use the info here.
+            string selectId = users.Single(x => x.Id == model._notebook.ApplicationUserId).Id;
+            IEnumerable<SelectListItem> selectList = users.AsEnumerable()
+                .ToSelectListItems(selectId);
+            model.Users = new SelectList(selectList, "Value", "Text", selectId);
+
+            if (model._notebook.CheckoutId != null)
+            { 
+                foreach (var clue in model._notebook.CheckoutId)
+                {
+                    model._checkouts.Add((CheckoutViewModel)db.Checkouts.Single(x => x.CheckoutId == clue));
+                }
+            }
+
+            model._sale = model._notebook.SaleId == null ? null : db.Sales.Single(x => x.SaleId == model._notebook.SaleId);
+
+            return View(model);
         }
 
         // POST: /Notebook/Edit/5
@@ -115,19 +143,35 @@ namespace Jinete.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Administrator, Manager")]
-        public ActionResult Edit([Bind(Include = "NotebookId,ComputerName,PersonFirstName,PersonLastName,Phone,Address,City,State,Zip,Email,dtCheckedOut,dtReturned,checkedIn")] Notebook notebook)
+        public ActionResult Edit(NotebookEditModel model)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(notebook).State = EntityState.Modified;
+                Notebook _notebook = model._notebook;
+                Sale _sale = model._sale;
+
+                if (_sale != null)
+                {
+                    _notebook.SaleId = _sale.SaleId;
+                    db.Entry(_sale).State = EntityState.Modified;
+                }
+                db.Entry(_notebook).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(notebook);
+
+            // Validation failed, reassign the list without assigning anything
+            List<ApplicationUser> users = db.Users.ToList();
+            string selectId = users.Single(x => x.Id == model._notebook.ApplicationUserId).Id;
+            IEnumerable<SelectListItem> selectList = users.AsEnumerable()
+                .ToSelectListItems(selectId);
+            model.Users = new SelectList(selectList, "Value", "Text", selectId);
+
+            return View(model);
         }
 
         // GET: /Notebook/Delete/5
-        [Authorize(Roles = "Administrator, Manager")]
+        [Authorize(Roles = "Administrator")]
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -145,7 +189,7 @@ namespace Jinete.Controllers
         // POST: /Notebook/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = "Administrator, Manager")]
+        [Authorize(Roles = "Administrator")]
         public ActionResult DeleteConfirmed(int id)
         {
             Notebook notebook = db.Notebooks.Find(id);
