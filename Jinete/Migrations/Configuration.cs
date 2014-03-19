@@ -19,28 +19,28 @@ namespace Jinete.Migrations
         {
             IdentityResult ir;
             //uncomment the following lines to create new role types for users
-            // var rm = new RoleManager<IdentityRole>
-             //   (new RoleStore<IdentityRole>(context));
-            //ir = rm.Create(new IdentityRole("Administrator"));
-            //ir = rm.Create(new IdentityRole("Manager"));
+            var rm = new RoleManager<IdentityRole>
+               (new RoleStore<IdentityRole>(context));
+            ir = rm.Create(new IdentityRole("Administrator"));
+            ir = rm.Create(new IdentityRole("Manager"));
             var um = new UserManager<ApplicationUser>(
                 new UserStore<ApplicationUser>(context));
             var user = new ApplicationUser()
             {
-                UserName = "",
-                Email = "",
-                FirstName = "",
-                LastName = "",
-                Phone = "",
-                Address = "",
-                City = "",
-                State = "",
-                Zip = ""
+                UserName = "hakcer",
+                Email = "kcbridges@casa-latina.org",
+                FirstName = "KC",
+                LastName = "Bridges",
+                Phone = "360-421-1827",
+                Address = "where the wind takes me",
+                City = "Seattle",
+                State = "WA",
+                Zip = "98144"
             };
             ir = um.Create(user, "");
             if (ir.Succeeded == false)
                 return ir.Succeeded;
-            ir = um.AddToRole(user.Id, "");
+            ir = um.AddToRole(user.Id, "Administrator");
             return ir.Succeeded;
         }
 

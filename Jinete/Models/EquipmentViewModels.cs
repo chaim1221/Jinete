@@ -34,6 +34,14 @@ namespace Jinete.ViewModels
         public string UserId { get; set; }
     }
 
+    public class NotebookDetailsModel
+    {
+        public Notebook _notebook { get; set; }
+        public ApplicationUser _user { get; set; }
+        public List<CheckoutViewModel> _checkouts { get; set; }
+        public Sale _sale { get; set; }
+    }
+
     public class CheckoutViewModel : Checkout
     {
         public string Username { get; set; }
