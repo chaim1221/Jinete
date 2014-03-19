@@ -26,7 +26,7 @@ namespace Jinete.Controllers
             um = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(db));
         }
 
-        // GET: /Notebook/
+        // GET: /Notebook/ this is what the browser is doing
         [Authorize(Roles = "Administrator, Manager")]
         public ActionResult Index()
         {
@@ -39,6 +39,10 @@ namespace Jinete.Controllers
                 ApplicationUser _user = um.FindById(note.ApplicationUserId);
                 noteView._notebook = note;
                 noteView._username = _user.FirstName + " " + _user.LastName;
+                if (note.SaleId != null)
+                {
+                    noteView._sold = db.Sales.Single(x => x.SaleId == note.SaleId);
+                }
                 notebookList.Add(noteView);
             }
 
@@ -54,11 +58,16 @@ namespace Jinete.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Notebook notebook = db.Notebooks.Find(id);
-            if (notebook == null)
+            if (notebook == null) 
             {
                 return HttpNotFound();
             }
-            return View(notebook);
+            NotebookDetailsModel details = new NotebookDetailsModel();
+            details._notebook = notebook;
+            details._user = um.FindById(notebook.ApplicationUserId);
+            details._sale = notebook.SaleId == null ? null : db.Sales.Single(x => x.SaleId == notebook.SaleId);
+
+            return View(details);
         }
 
         // GET: /Notebook/Create

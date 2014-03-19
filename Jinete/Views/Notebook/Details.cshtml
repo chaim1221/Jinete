@@ -1,4 +1,5 @@
-﻿@model Jinete.Models.Notebook
+﻿@using Resources
+@model Jinete.ViewModels.NotebookDetailsModel
 
 @{
     ViewBag.Title = "Details";
@@ -11,56 +12,172 @@
 	<hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.EquipmentName)
+            @Html.DisplayNameFor(model => model._notebook.EquipmentName)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.EquipmentName)
+            @Html.DisplayFor(model => model._notebook.EquipmentName)
         </dd>
 
         <dt>
-            @Html.HiddenFor(model => model.ApplicationUserId)
+            @Html.HiddenFor(model => model._notebook.ApplicationUserId)
         </dt>
 
         <dd>
-            @Html.HiddenFor(model => model.ApplicationUserId)
+            @Html.HiddenFor(model => model._notebook.ApplicationUserId)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.SerialNumber)
+            @Html.DisplayNameFor(model => model._notebook.SerialNumber)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.SerialNumber)
+            @Html.DisplayFor(model => model._notebook.SerialNumber)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.PurchasePrice)
+            @Html.DisplayNameFor(model => model._notebook.PurchasePrice)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.PurchasePrice)
+            @Html.DisplayFor(model => model._notebook.PurchasePrice)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Discarded)
+            @Html.DisplayNameFor(model => model._notebook.Discarded)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Discarded)
+            @Html.DisplayFor(model => model._notebook.Discarded)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.LostOrStolen)
+            @Html.DisplayNameFor(model => model._notebook.LostOrStolen)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.LostOrStolen)
+            @Html.DisplayFor(model => model._notebook.LostOrStolen)
         </dd>
 
     </dl>
+
+    <h4>User Information</h4>
+    <hr />
+    <dl class="dl-horizontal">
+
+        <dt>
+            @Html.DisplayNameFor(model => model._user.UserName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model._user.UserName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model._user.FirstName) @Html.DisplayNameFor(model => model._user.LastName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model._user.FirstName) @Html.DisplayFor(model => model._user.LastName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model._user.Address)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model._user.Address)
+        </dd>
+
+
+        <dt>
+         
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model._user.City), @Html.DisplayFor(model => model._user.State) @Html.DisplayFor(model => model._user.Zip) 
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model._user.Email)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model._user.Email)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model._user.Phone)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model._user.Phone)
+        </dd>
+
+</dl>
+
+    <h4>Checkout Information</h4>
+    <hr />
+
+        @if (Model._notebook.CheckoutId != null)
+        {
+            <table class="table">
+                <tr>
+                    <th>
+                        @Equipment.Actions
+                    </th>
+                    <th>
+                        @Equipment.UserName
+                    </th>
+                    <th>
+                        @Equipment.CheckedOut
+                    </th>
+                    <th>
+                        @Equipment.CheckedIn
+                    </th>
+                </tr>
+
+                @foreach (var item in Model._checkouts)
+                {
+                    <tr>
+                        <td>
+                            @Html.ActionLink("Edit", "Edit", "Checkout", item.CheckoutId, new { id = item.CheckoutId })<br />
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Username)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.dtCheckedOut);
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.dtReturned);
+                        </td>
+                    </tr>
+                }
+            </table>
+        }
+        else
+        {
+            <p>This item has not been checked out.</p>
+        }
+
+        @if (Model._sale != null)
+        {
+            <table>
+                <tr>
+                    <th>Sold on</th>
+                    <th>Amount</th>
+                <tr>
+                    @Html.DisplayFor(model => model._sale.dtSold)
+                </tr>
+                <tr>
+                    @Html.DisplayFor(model => model._sale.SalePrice)
+                </tr>
+            </table>
+        }
+        
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.NotebookId }) |
+    @Html.ActionLink("Edit", "Edit", new { id = Model._notebook.NotebookId }) |
     @Html.ActionLink("Back to List", "Index")
 </p>
