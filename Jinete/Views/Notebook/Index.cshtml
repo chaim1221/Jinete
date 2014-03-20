@@ -6,6 +6,8 @@
     ViewBag.Title = "Index";
 }
 
+@Html.AntiForgeryToken();
+
 <h2>Index</h2>
 
 <p>
@@ -45,6 +47,16 @@
 @foreach (var item in Model) {
     <tr>
         <td>
+            @if (item._notebook.isCheckedOut == true)
+            {
+                using (Html.BeginForm("Return", "Notebook", new { id = item._notebook.NotebookId } ))
+                {
+                    
+                    <input type="submit" value="Return" />
+                } 
+            } else {
+                @Html.ActionLink("Check Out", "Checkout", new { id = item._notebook.NotebookId })
+            }<br />
             @Html.ActionLink("Details", "Details", new { id = item._notebook.NotebookId })<br />
             @Html.ActionLink("Edit", "Edit", new { id = item._notebook.NotebookId })<br />
         </td>
@@ -55,10 +67,10 @@
             @Html.DisplayFor(modelItem => item._username)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item._lastcheckout.dtCheckedOut);
+            @Html.DisplayFor(modelItem => item._lastcheckout.dtCheckedOut)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item._lastcheckout.dtReturned);
+            @Html.DisplayFor(modelItem => item._lastcheckout.dtReturned)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item._sold.dtSold)

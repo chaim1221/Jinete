@@ -202,6 +202,18 @@
     <Compile Include="Migrations\201403182338382_EditViewModels.Designer.cs">
       <DependentUpon>201403182338382_EditViewModels.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201403192002527_AddCheckouts.cs" />
+    <Compile Include="Migrations\201403192002527_AddCheckouts.Designer.cs">
+      <DependentUpon>201403192002527_AddCheckouts.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201403192227541_ForeignKeyNightmares.cs" />
+    <Compile Include="Migrations\201403192227541_ForeignKeyNightmares.Designer.cs">
+      <DependentUpon>201403192227541_ForeignKeyNightmares.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201403200142064_SeparateViewModels.cs" />
+    <Compile Include="Migrations\201403200142064_SeparateViewModels.Designer.cs">
+      <DependentUpon>201403200142064_SeparateViewModels.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\EquipmentViewModels.cs" />
@@ -270,6 +282,7 @@
     <Content Include="Views\Account\UserRoles.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\SelectRoleEditorViewModel.cshtml" />
     <Content Include="Views\Account\Delete.cshtml" />
+    <Content Include="Views\Notebook\Checkout.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -309,6 +322,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201403182338382_EditViewModels.resx">
       <DependentUpon>201403182338382_EditViewModels.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201403192002527_AddCheckouts.resx">
+      <DependentUpon>201403192002527_AddCheckouts.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201403192227541_ForeignKeyNightmares.resx">
+      <DependentUpon>201403192227541_ForeignKeyNightmares.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201403200142064_SeparateViewModels.resx">
+      <DependentUpon>201403200142064_SeparateViewModels.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

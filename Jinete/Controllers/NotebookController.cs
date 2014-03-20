@@ -36,17 +36,84 @@ namespace Jinete.Controllers
             foreach(Notebook note in notes)
             {
                 NotebookViewModel noteView = new NotebookViewModel();
-                ApplicationUser _user = um.FindById(note.ApplicationUserId);
+                ApplicationUser _user = note.ApplicationUser;
                 noteView._notebook = note;
                 noteView._username = _user.FirstName + " " + _user.LastName;
-                if (note.SaleId != null)
-                {
-                    noteView._sold = db.Sales.Single(x => x.SaleId == note.SaleId);
-                }
+                noteView._sold = note.Sale ?? null;
                 notebookList.Add(noteView);
             }
 
             return View(notebookList.AsEnumerable());
+        }
+
+        // GET: /Notebook/Checkout/5
+        [Authorize(Roles = "Administrator, Manager")]
+        public ActionResult Checkout(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            var model = new CheckoutCreateModel();
+
+            string selectId = User.Identity.GetUserId();
+            model.Users = FullNameUserList(db, selectId);
+
+            return View(model);
+        }
+
+        // POST: /Notebook/Checkout/5
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Administrator, Manager")]
+        public ActionResult Checkout(CheckoutCreateModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                Checkout _checkout = new Checkout
+                    {
+                        ApplicationUser = um.FindById(model.ApplicationUserId),
+                        dtCheckedOut = model.dtCheckedOut,
+                        EquipmentId = model.EquipmentId,
+                        EquipmentType = "Notebook"
+                    };
+                Notebook _notebook = db.Notebooks.Find(model.EquipmentId);
+                //This looks right....
+                _notebook.Checkouts.Add(_checkout);
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+
+            string selectId = model.ApplicationUserId;
+            model.Users = FullNameUserList(db, selectId);
+
+            return View(model);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Administrator, Manager")]
+        public ActionResult Return(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Notebook notebook = db.Notebooks.Find(id);
+            if (notebook == null)
+            {
+                return HttpNotFound();
+            }
+            // I think I can, I think I can....
+            Checkout checkout = notebook.Checkouts.Last();
+            notebook.isCheckedOut = false;
+            checkout.dtReturned = DateTime.Now;
+            db.Entry(notebook).State = EntityState.Modified;
+            db.Entry(checkout).State = EntityState.Modified;
+            db.SaveChanges();
+            return RedirectToAction("Index");
         }
 
         // GET: /Notebook/Details/5
@@ -58,14 +125,27 @@ namespace Jinete.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Notebook notebook = db.Notebooks.Find(id);
-            if (notebook == null) 
+            if (notebook == null)
             {
                 return HttpNotFound();
             }
             NotebookDetailsModel details = new NotebookDetailsModel();
             details._notebook = notebook;
-            details._user = um.FindById(notebook.ApplicationUserId);
-            details._sale = notebook.SaleId == null ? null : db.Sales.Single(x => x.SaleId == notebook.SaleId);
+            details._user = notebook.ApplicationUser;
+
+            if (notebook.Checkouts != null)
+            {
+                details._checkouts = db.Checkouts
+                    .Where(x => x.EquipmentType == "Notebook" && x.EquipmentId == notebook.NotebookId)
+                    .Select(x => new CheckoutViewModel
+                    {
+                        dtCheckedOut = x.dtCheckedOut,
+                        dtReturned = x.dtReturned,
+                        Username = details._user.FirstName + " " + details._user.LastName
+                    }).ToList();
+            }
+
+            details._sale = notebook.Sale == null ? null : db.Sales.Single(x => x.SaleId == notebook.Sale.SaleId);
 
             return View(details);
         }
@@ -74,12 +154,9 @@ namespace Jinete.Controllers
         [Authorize(Roles = "Administrator, Manager")]
         public ActionResult Create()
         {
-            NotebookCreateModel model = new NotebookCreateModel();
-            List<ApplicationUser> users = db.Users.ToList();
-            string selectId = users.Where(x => x.Id == User.Identity.GetUserId()).Select(x => x.Id).First();
-            IEnumerable<SelectListItem> selectList = users.AsEnumerable()
-                .ToSelectListItems(selectId);
-            model.Users = new SelectList(selectList, "Value", "Text", selectId);
+            EquipmentCreateModel model = new EquipmentCreateModel();
+            string selectId = User.Identity.GetUserId();
+            model.Users = FullNameUserList(db, selectId);
             return View(model);
         }
 
@@ -89,22 +166,26 @@ namespace Jinete.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Administrator, Manager")]
-        public ActionResult Create(NotebookCreateModel model)
+        public ActionResult Create(EquipmentCreateModel model)
         {
             if (ModelState.IsValid)
             {
-                Notebook _notebook = (Notebook)model;
+                Notebook _notebook = new Notebook
+                    {
+                        ApplicationUser = um.FindById(model.ApplicationUserId),
+                        EquipmentName = model.EquipmentName,
+                        SerialNumber = model.SerialNumber,
+                        PurchasePrice = model.PurchasePrice,
+                        isCheckedOut = false
+                    };
                 db.Notebooks.Add(_notebook);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
             // Validation failed, reassign the list without assigning anything
-            List<ApplicationUser> users = db.Users.ToList();
-            string selectId = users.Single(x => x.Id == model.ApplicationUserId).Id;
-            IEnumerable<SelectListItem> selectList = users.AsEnumerable()
-                .ToSelectListItems(selectId);
-            model.Users = new SelectList(selectList, "Value", "Text", selectId);
+            string selectId = model.ApplicationUserId;
+            model.Users = FullNameUserList(db, selectId);
 
             return View(model);
         }
@@ -118,31 +199,17 @@ namespace Jinete.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            NotebookEditModel model = new NotebookEditModel();
-            model._notebook = db.Notebooks.Find(id); ;
-            if (model._notebook == null)
+            Notebook _notebook = db.Notebooks.Find(id);
+            if (_notebook == null)
             {
                 return HttpNotFound();
             }
-
-            List<ApplicationUser> users = db.Users.ToList();
-
-            // Grabbing the user here for the benefit of the "Details" view. We do not use the info here.
-            string selectId = users.Single(x => x.Id == model._notebook.ApplicationUserId).Id;
-            IEnumerable<SelectListItem> selectList = users.AsEnumerable()
-                .ToSelectListItems(selectId);
-            model.Users = new SelectList(selectList, "Value", "Text", selectId);
-
-            if (model._notebook.CheckoutId != null)
-            { 
-                foreach (var clue in model._notebook.CheckoutId)
-                {
-                    model._checkouts.Add((CheckoutViewModel)db.Checkouts.Single(x => x.CheckoutId == clue));
-                }
-            }
-
-            model._sale = model._notebook.SaleId == null ? null : db.Sales.Single(x => x.SaleId == model._notebook.SaleId);
-
+            
+            NotebookEditModel model = new NotebookEditModel(_notebook);
+            
+            string selectId = _notebook.ApplicationUser.Id;
+            model.Users = FullNameUserList(db, selectId);
+            
             return View(model);
         }
 
@@ -156,25 +223,35 @@ namespace Jinete.Controllers
         {
             if (ModelState.IsValid)
             {
-                Notebook _notebook = model._notebook;
-                Sale _sale = model._sale;
+                Notebook _notebook = db.Notebooks.Find(model.NotebookId);
 
-                if (_sale != null)
+                _notebook.ApplicationUser = um.FindById(model.ApplicationUserId);
+                _notebook.Discarded = model.Discarded;
+                _notebook.EquipmentName = model.EquipmentName;
+                _notebook.LostOrStolen = model.LostOrStolen;
+                _notebook.PurchasePrice = model.PurchasePrice;
+                _notebook.SerialNumber = model.SerialNumber;
+                
+                if (model.dtSold != null)
                 {
-                    _notebook.SaleId = _sale.SaleId;
-                    db.Entry(_sale).State = EntityState.Modified;
+                    Sale _sale = new Sale
+                        {
+                            dtSold = (DateTime)model.dtSold,
+                            SalePrice = model.SalePrice ?? 0.0
+                        };
+                    db.Sales.Add(_sale);
+                    db.SaveChanges();
+                    _notebook.Sale = _sale;
                 }
+
                 db.Entry(_notebook).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
             // Validation failed, reassign the list without assigning anything
-            List<ApplicationUser> users = db.Users.ToList();
-            string selectId = users.Single(x => x.Id == model._notebook.ApplicationUserId).Id;
-            IEnumerable<SelectListItem> selectList = users.AsEnumerable()
-                .ToSelectListItems(selectId);
-            model.Users = new SelectList(selectList, "Value", "Text", selectId);
+            string selectId = model.ApplicationUserId;
+            model.Users = FullNameUserList(db, selectId);
 
             return View(model);
         }
@@ -205,6 +282,14 @@ namespace Jinete.Controllers
             db.Notebooks.Remove(notebook);
             db.SaveChanges();
             return RedirectToAction("Index");
+        }
+
+        public static SelectList FullNameUserList(ApplicationDbContext db, string id)
+        {
+            List<ApplicationUser> users = db.Users.ToList();
+            IEnumerable<SelectListItem> selectList = users.AsEnumerable()
+                .ToSelectUserList(id);
+            return new SelectList(selectList, "Value", "Text", id);
         }
 
         protected override void Dispose(bool disposing)

@@ -18,131 +18,134 @@
         @Html.ValidationSummary(true)
 
         <div class="form-group">
-            @Html.LabelFor(model => model._notebook.EquipmentName, new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.EquipmentName, new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model._notebook.EquipmentName)
-                @Html.ValidationMessageFor(model => model._notebook.EquipmentName)
+                @Html.EditorFor(model => model.EquipmentName)
+                @Html.ValidationMessageFor(model => model.EquipmentName)
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model._notebook.SerialNumber, new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.SerialNumber, new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model._notebook.SerialNumber)
-                @Html.ValidationMessageFor(model => model._notebook.SerialNumber)
+                @Html.EditorFor(model => model.SerialNumber)
+                @Html.ValidationMessageFor(model => model.SerialNumber)
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model._notebook.PurchasePrice, new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.PurchasePrice, new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model._notebook.PurchasePrice)
-                @Html.ValidationMessageFor(model => model._notebook.PurchasePrice)
+                @Html.EditorFor(model => model.PurchasePrice)
+                @Html.ValidationMessageFor(model => model.PurchasePrice)
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model._notebook.Discarded, new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.Discarded, new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model._notebook.Discarded)
-                @Html.ValidationMessageFor(model => model._notebook.Discarded)
+                @Html.EditorFor(model => model.Discarded)
+                @Html.ValidationMessageFor(model => model.Discarded)
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model._notebook.LostOrStolen, new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.LostOrStolen, new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model._notebook.LostOrStolen)
-                @Html.ValidationMessageFor(model => model._notebook.LostOrStolen)
+                @Html.EditorFor(model => model.LostOrStolen)
+                @Html.ValidationMessageFor(model => model.LostOrStolen)
             </div>
         </div>
 
         <div class="form-group">
             @Html.LabelFor(model => model.Users, new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.DropDownListFor(m => m._notebook.ApplicationUserId, Model.Users, "Select a new user:", new { @class = "form-control" })
+                @Html.DropDownListFor(m => m.ApplicationUserId, Model.Users)
                 @Html.ValidationMessageFor(model => model.Users)
             </div>
         </div>
-
-    @if (Model._notebook.CheckoutId != null)
-    {
-        <table class="table">
+            
+        @if (Model.dtSold != null)
+        { 
+        <table>
             <tr>
                 <th>
-                    @Equipment.Actions
+                    Sold on
                 </th>
                 <th>
-                    @Equipment.UserName
-                </th>
-                <th>
-                    @Equipment.CheckedOut
-                </th>
-                <th>
-                    @Equipment.CheckedIn
+                    Amount
                 </th>
             </tr>
-
-            @foreach (var item in Model._checkouts)
-            {
+            <tr>
+                <td>
+                    @Html.DisplayFor(model => model.dtSold)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => model.SalePrice)
+                </td>
+            </tr>
+        </table>
+        }
+        else
+        {
+            <div class="form-group">
+                @Html.LabelFor(model => model.dtSold, new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(m => m.dtSold)
+                    @Html.ValidationMessageFor(model => model.dtSold)
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.SalePrice, new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(m => m.SalePrice)
+                    @Html.ValidationMessageFor(model => model.SalePrice)
+                </div>
+            </div>
+        }
+        
+        @if (Model.Checkouts.Any())
+        {
+            <table class="table">
                 <tr>
-                    <td>
-                        @Html.ActionLink("Edit", "Edit", "Checkout", item.CheckoutId, new { id = item.CheckoutId })<br />
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Username)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.dtCheckedOut);
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.dtReturned);
-                    </td>
+                    <th>
+                        @Equipment.Actions
+                    </th>
+                    <th>
+                        @Equipment.UserName
+                    </th>
+                    <th>
+                        @Equipment.CheckedOut
+                    </th>
+                    <th>
+                        @Equipment.CheckedIn
+                    </th>
                 </tr>
-            }
+
+                @foreach (var item in Model.Checkouts)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Username)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.dtCheckedOut);
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.dtReturned);
+                        </td>
+                    </tr>
+                }
             </table>
         }
         else
-    {
-        <p>This item has not been checked out.</p>
-    }
-            
-            @if (Model._sale != null)
-            { 
-            <table>
-                <tr>
-                    <th>Sold on</th>
-                    <th>Amount</th>
-                <tr>
-                    @Html.DisplayFor(model => model._sale.dtSold)
-                </tr>
-                <tr>
-                    @Html.DisplayFor(model => model._sale.SalePrice)
-                </tr>
-            </table>
-            }
-            else
-            {
-                @Html.HiddenFor(model => model._sale.SaleId)
-                <div class="form-group">
-                    @Html.LabelFor(model => model._sale.dtSold, new { @class = "control-label col-md-2" })
-                    <div class="col-md-10">
-                        @Html.EditorFor(model => model._sale.dtSold)
-                        @Html.ValidationMessageFor(model => model._sale.dtSold)
-                    </div>
-                </div>
-                <div class="form-group">
-                    @Html.LabelFor(model => model._sale.SalePrice, new { @class = "control-label col-md-2" })
-                    <div class="col-md-10">
-                        @Html.EditorFor(model => model._sale.SalePrice)
-                        @Html.ValidationMessageFor(model => model._sale.SalePrice)
-                    </div>
-                </div>
-            }
-            
-            @Html.HiddenFor(model => model._notebook.ApplicationUserId)
-            @Html.HiddenFor(model => model._notebook.NotebookId)
-            @Html.HiddenFor(model => model._notebook.SaleId)
+        {
+            <p>This item has not been checked out.</p>
+        }
+
+        @Html.HiddenFor(model => model.NotebookId)
+        @Html.HiddenFor(model => model.isCheckedOut)
+
 
             <div class="form-group">
                 <div class="col-md-offset-2 col-md-10">

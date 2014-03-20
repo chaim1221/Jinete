@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Globalization;
 
 namespace Jinete.Models
@@ -9,35 +10,41 @@ namespace Jinete.Models
     public abstract class Equipment // : CheckoutInfo
     {
         [Required]
-        [DisplayName("Item Name")]
         public string EquipmentName { get; set; }
         [Required]
-        [DisplayName("Serial Number")]
         public string SerialNumber { get; set; }
         [Required]
-        [DisplayName("Purchase Price")]
         public double PurchasePrice { get; set; }
         [DisplayName("Discarded on")]
         public DateTime? Discarded { get; set; }
         [DisplayName("Lost or stolen on")]
         public DateTime? LostOrStolen { get; set; }
+        [Required]
+        public bool isCheckedOut { get; set; }
 
         [Required]
-        public string ApplicationUserId { get; set; }
-        public virtual ICollection<int> CheckoutId { get; set; }
-        public int? SaleId { get; set; }
+        public virtual ApplicationUser ApplicationUser { get; set; }
+
+        public virtual ICollection<Checkout> Checkouts { get; set; }
+
+        public virtual Sale Sale { get; set; }
     }
 
     public class Checkout
     {
         public int CheckoutId { get; set; }
-        public string ApplicationUserId { get; set; }
-        [DisplayName("Checked Out")]
+        [Required]
         [DataType(DataType.DateTime)]
         public DateTime dtCheckedOut { get; set; }
-        [DisplayName("Checked In")]
         [DataType(DataType.DateTime)]
         public DateTime? dtReturned { get; set; }
+        [Required]
+        public int EquipmentId { get; set; }
+        [Required]
+        public string EquipmentType { get; set; }
+
+        [Required]
+        public virtual ApplicationUser ApplicationUser { get; set; }
     }
 
     public class Sale
@@ -45,12 +52,10 @@ namespace Jinete.Models
         public int SaleId { get; set; }
 
         [Required]
-        [DisplayName("Date and Time Sold")]
         [DataType(DataType.DateTime)]
         public DateTime dtSold { get; set; }
 
         [Required]
-        [DisplayName("Sale Price")]
         [DataType(DataType.Currency)]
         public double SalePrice { get; set; }
     }
