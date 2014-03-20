@@ -393,6 +393,7 @@ namespace Jinete.Controllers
             {
                 UserManager.Dispose();
                 UserManager = null;
+                db.Dispose();
             }
             base.Dispose(disposing);
         }

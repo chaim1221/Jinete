@@ -58,6 +58,7 @@ namespace Jinete.Controllers
             }
             var model = new CheckoutCreateModel();
             model.EquipmentId = (int)id;
+            model.dtCheckedOut = DateTime.Now;
 
             string selectId = User.Identity.GetUserId();
             model.Users = FullNameUserList(db, selectId);
@@ -93,16 +94,9 @@ namespace Jinete.Controllers
                 try { 
                         db.SaveChanges();
                     }
-                catch (DbEntityValidationException dbEx)
-                {
-                    foreach (var validationErrors in dbEx.EntityValidationErrors)
-                    {
-                        foreach (var validationError in validationErrors.ValidationErrors)
-                        {
-                            Trace.TraceInformation("Property: {0} Error: {1} Entity: {2}", validationError.PropertyName, validationError.ErrorMessage, validationErrors.Entry.Entity.GetType().FullName);
-                        }
+                catch (DbEntityValidationException dbEx) {
+                        GetDbErrorState(dbEx);
                     }
-                }
 
                 return RedirectToAction("Index");
             }
@@ -113,8 +107,6 @@ namespace Jinete.Controllers
             return View(model);
         }
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
         [Authorize(Roles = "Administrator, Manager")]
         public ActionResult Return(int? id)
         {
@@ -128,12 +120,23 @@ namespace Jinete.Controllers
                 return HttpNotFound();
             }
             // I think I can, I think I can....
-            Checkout checkout = notebook.Checkouts.Last();
+            Checkout checkout = notebook.Checkouts.OrderBy(x => x.dtCheckedOut).Last();
+            ApplicationUser NotebookUser = notebook.ApplicationUser;
+            ApplicationUser CheckoutUser = checkout.ApplicationUser;
             notebook.isCheckedOut = false;
             checkout.dtReturned = DateTime.Now;
-            db.Entry(notebook).State = EntityState.Modified;
-            db.Entry(checkout).State = EntityState.Modified;
-            db.SaveChanges();
+            checkout.ApplicationUser = CheckoutUser;
+            notebook.ApplicationUser = NotebookUser; //once again the insanity
+
+            try
+            {
+                db.SaveChanges();
+            }
+            catch (DbEntityValidationException dbEx)
+            {
+                GetDbErrorState(dbEx);
+            }
+
             return RedirectToAction("Index");
         }
 
@@ -307,10 +310,22 @@ namespace Jinete.Controllers
             return new SelectList(selectList, "Value", "Text", id);
         }
 
+        public static void GetDbErrorState(DbEntityValidationException dbEx)
+        {
+            foreach (var validationErrors in dbEx.EntityValidationErrors)
+            {
+                foreach (var validationError in validationErrors.ValidationErrors)
+                {
+                    Trace.TraceInformation("Property: {0} Error: {1} Entity: {2}", validationError.PropertyName, validationError.ErrorMessage, validationErrors.Entry.Entity.GetType().FullName);
+                }
+            }
+        }
+
         protected override void Dispose(bool disposing)
         {
             if (disposing)
             {
+                um.Dispose(); 
                 db.Dispose();
             }
             base.Dispose(disposing);

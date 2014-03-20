@@ -6,8 +6,6 @@
     ViewBag.Title = "Index";
 }
 
-@Html.AntiForgeryToken();
-
 <h2>Index</h2>
 
 <p>
@@ -49,7 +47,7 @@
         <td>
             @if (item._notebook.isCheckedOut == true)
             {
-                @Html.ActionLink("Return", "Notebook", new { id = item._notebook.NotebookId } )
+                @Html.ActionLink("Return", "Return", new { id = item._notebook.NotebookId } )
             } else {
                 @Html.ActionLink("Check Out", "Checkout", new { id = item._notebook.NotebookId })
             }<br />
