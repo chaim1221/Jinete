@@ -129,23 +129,17 @@ namespace Jinete.Controllers
             {
                 return HttpNotFound();
             }
-            NotebookDetailsModel details = new NotebookDetailsModel();
+            NotebookViewModel details = new NotebookViewModel();
             details._notebook = notebook;
-            details._user = notebook.ApplicationUser;
 
-            if (notebook.Checkouts != null)
-            {
-                details._checkouts = db.Checkouts
-                    .Where(x => x.EquipmentType == "Notebook" && x.EquipmentId == notebook.NotebookId)
-                    .Select(x => new CheckoutViewModel
-                    {
-                        dtCheckedOut = x.dtCheckedOut,
-                        dtReturned = x.dtReturned,
-                        Username = details._user.FirstName + " " + details._user.LastName
-                    }).ToList();
-            }
+            details._lastcheckout = notebook.Checkouts.Any() ? notebook.Checkouts.OrderByDescending(x => x.dtCheckedOut).Select(x => new CheckoutViewModel 
+                {
+                    dtCheckedOut = x.dtCheckedOut,
+                    dtReturned = x.dtReturned,
+                    Username = x.ApplicationUser.FirstName + " " + x.ApplicationUser.LastName
+                }).First() : null;
 
-            details._sale = notebook.Sale == null ? null : db.Sales.Single(x => x.SaleId == notebook.Sale.SaleId);
+            details._sold = notebook.Sale == null ? null : notebook.Sale;
 
             return View(details);
         }

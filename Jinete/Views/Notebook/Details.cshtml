@@ -1,5 +1,5 @@
 ﻿@using Resources
-@model Jinete.ViewModels.NotebookDetailsModel
+@model Jinete.ViewModels.NotebookViewModel
 
 @{
     ViewBag.Title = "Details";
@@ -17,14 +17,6 @@
 
         <dd>
             @Html.DisplayFor(model => model._notebook.EquipmentName)
-        </dd>
-
-        <dt>
-            @Html.HiddenFor(model => model._notebook.ApplicationUserId)
-        </dt>
-
-        <dd>
-            @Html.HiddenFor(model => model._notebook.ApplicationUserId)
         </dd>
 
         <dt>
@@ -66,27 +58,19 @@
     <dl class="dl-horizontal">
 
         <dt>
-            @Html.DisplayNameFor(model => model._user.UserName)
+            @Html.DisplayNameFor(model => model._notebook.ApplicationUser.UserName)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model._user.UserName)
+            @Html.DisplayFor(model => model._notebook.ApplicationUser.FirstName) @Html.DisplayFor(model => model._notebook.ApplicationUser.LastName)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model._user.FirstName) @Html.DisplayNameFor(model => model._user.LastName)
+            @Html.DisplayNameFor(model => model._notebook.ApplicationUser.Address)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model._user.FirstName) @Html.DisplayFor(model => model._user.LastName)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model._user.Address)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model._user.Address)
+            @Html.DisplayFor(model => model._notebook.ApplicationUser.Address)
         </dd>
 
 
@@ -95,23 +79,23 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model._user.City), @Html.DisplayFor(model => model._user.State) @Html.DisplayFor(model => model._user.Zip) 
+            @Html.DisplayFor(model => model._notebook.ApplicationUser.City), @Html.DisplayFor(model => model._notebook.ApplicationUser.State) @Html.DisplayFor(model => model._notebook.ApplicationUser.Zip) 
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model._user.Email)
+            @Html.DisplayNameFor(model => model._notebook.ApplicationUser.Email)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model._user.Email)
+            @Html.DisplayFor(model => model._notebook.ApplicationUser.Email)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model._user.Phone)
+            @Html.DisplayNameFor(model => model._notebook.ApplicationUser.Phone)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model._user.Phone)
+            @Html.DisplayFor(model => model._notebook.ApplicationUser.Phone)
         </dd>
 
 </dl>
@@ -119,7 +103,7 @@
     <h4>Checkout Information</h4>
     <hr />
 
-        @if (Model._notebook.CheckoutId != null)
+        @if (Model._lastcheckout != null)
         {
             <table class="table">
                 <tr>
@@ -137,14 +121,14 @@
                     </th>
                 </tr>
 
-                @foreach (var item in Model._checkouts)
+                @foreach (var item in Model._notebook.Checkouts)
                 {
                     <tr>
                         <td>
                             @Html.ActionLink("Edit", "Edit", "Checkout", item.CheckoutId, new { id = item.CheckoutId })<br />
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.Username)
+                            @Html.DisplayFor(modelItem => item.ApplicationUser.FirstName) @Html.DisplayFor(modelItem => item.ApplicationUser.LastName)
                         </td>
                         <td>
                             @Html.DisplayFor(modelItem => item.dtCheckedOut);
@@ -161,33 +145,25 @@
             <p>This item has not been checked out.</p>
         }
 
-        @if (Model._sale != null)
+        @if (Model._sold != null)
         {
+            <h4>Sale Information</h4>
+            <hr />
             <table>
                 <tr>
                     <th>Sold on</th>
                     <th>Amount</th>
                 <tr>
-                    @Html.DisplayFor(model => model._sale.dtSold)
-                </tr>
-                <tr>
-                    @Html.DisplayFor(model => model._sale.SalePrice)
+                    <th>
+                        @Html.DisplayFor(model => model._notebook.Sale.dtSold)
+                    </th>
+                    <th>
+                        @Html.DisplayFor(model => model._notebook.Sale.SalePrice)
+                    </th>
                 </tr>
             </table>
         }
         
-    <h4>Sale Information</h4>
-    <hr />
-
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model._notebook.SaleId)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model._notebook.SaleId)
-        </dd>
-
 </div>
 <p>
     @Html.ActionLink("Edit", "Edit", new { id = Model._notebook.NotebookId }) |

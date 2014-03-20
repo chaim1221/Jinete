@@ -14,11 +14,6 @@ namespace Jinete.ViewModels
         public Notebook _notebook { get; set; }
     }
 
-    public class NotebookDetailsModel : EquipmentDetailsModel
-    {
-        public Notebook _notebook { get; set; }
-    }
-
     public class NotebookEditModel : EquipmentEditModel
     {
         public NotebookEditModel() { }
@@ -54,15 +49,8 @@ namespace Jinete.ViewModels
     public abstract class EquipmentViewModel
     {
         public string _username { get; set; }
-        public Checkout _lastcheckout { get; set; }
+        public CheckoutViewModel _lastcheckout { get; set; }
         public Sale _sold { get; set; }
-    }
-
-    public class EquipmentDetailsModel
-    {
-        public ApplicationUser _user { get; set; }
-        public List<CheckoutViewModel> _checkouts { get; set; }
-        public Sale _sale { get; set; }
     }
 
     public class EquipmentCreateModel
