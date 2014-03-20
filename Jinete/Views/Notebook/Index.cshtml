@@ -49,11 +49,7 @@
         <td>
             @if (item._notebook.isCheckedOut == true)
             {
-                using (Html.BeginForm("Return", "Notebook", new { id = item._notebook.NotebookId } ))
-                {
-                    
-                    <input type="submit" value="Return" />
-                } 
+                @Html.ActionLink("Return", "Notebook", new { id = item._notebook.NotebookId } )
             } else {
                 @Html.ActionLink("Check Out", "Checkout", new { id = item._notebook.NotebookId })
             }<br />

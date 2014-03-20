@@ -38,10 +38,6 @@ namespace Jinete.Models
         public DateTime dtCheckedOut { get; set; }
         [DataType(DataType.DateTime)]
         public DateTime? dtReturned { get; set; }
-        [Required]
-        public int EquipmentId { get; set; }
-        [Required]
-        public string EquipmentType { get; set; }
 
         [Required]
         public virtual ApplicationUser ApplicationUser { get; set; }

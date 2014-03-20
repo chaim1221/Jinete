@@ -126,13 +126,16 @@
                 {
                     <tr>
                         <td>
+                            @Html.ActionLink("Return", "Notebook", new { id = Model.NotebookId })
+                        </td>
+                        <td>
                             @Html.DisplayFor(modelItem => item.Username)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.dtCheckedOut);
+                            @Html.DisplayFor(modelItem => item.dtCheckedOut)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.dtReturned);
+                            @Html.DisplayFor(modelItem => item.dtReturned)
                         </td>
                     </tr>
                 }

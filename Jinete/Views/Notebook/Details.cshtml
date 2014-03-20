@@ -108,9 +108,6 @@
             <table class="table">
                 <tr>
                     <th>
-                        @Equipment.Actions
-                    </th>
-                    <th>
                         @Equipment.UserName
                     </th>
                     <th>
@@ -125,16 +122,13 @@
                 {
                     <tr>
                         <td>
-                            @Html.ActionLink("Edit", "Edit", "Checkout", item.CheckoutId, new { id = item.CheckoutId })<br />
-                        </td>
-                        <td>
                             @Html.DisplayFor(modelItem => item.ApplicationUser.FirstName) @Html.DisplayFor(modelItem => item.ApplicationUser.LastName)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.dtCheckedOut);
+                            @Html.DisplayFor(modelItem => item.dtCheckedOut)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.dtReturned);
+                            @Html.DisplayFor(modelItem => item.dtReturned)
                         </td>
                     </tr>
                 }

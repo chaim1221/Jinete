@@ -12,6 +12,8 @@ using Jinete.ModelExtensions;
 using Jinete.ViewModels;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
+using System.Data.Entity.Validation;
+using System.Diagnostics;
 
 namespace Jinete.Controllers
 {
@@ -55,6 +57,7 @@ namespace Jinete.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             var model = new CheckoutCreateModel();
+            model.EquipmentId = (int)id;
 
             string selectId = User.Identity.GetUserId();
             model.Users = FullNameUserList(db, selectId);
@@ -75,14 +78,32 @@ namespace Jinete.Controllers
                 Checkout _checkout = new Checkout
                     {
                         ApplicationUser = um.FindById(model.ApplicationUserId),
-                        dtCheckedOut = model.dtCheckedOut,
-                        EquipmentId = model.EquipmentId,
-                        EquipmentType = "Notebook"
+                        dtCheckedOut = model.dtCheckedOut//,
+                        // Early attempt to create a *-1 rel.
+                        //EquipmentId = model.EquipmentId,
+                        //EquipmentType = "Notebook"
                     };
                 Notebook _notebook = db.Notebooks.Find(model.EquipmentId);
-                //This looks right....
+                ApplicationUser _user = _notebook.ApplicationUser;
+                _notebook.isCheckedOut = true;
                 _notebook.Checkouts.Add(_checkout);
-                db.SaveChanges();
+                _notebook.ApplicationUser = _user; // No fucking clue if/why this is necessary.
+
+                db.Entry(_notebook).State = EntityState.Modified;
+                try { 
+                        db.SaveChanges();
+                    }
+                catch (DbEntityValidationException dbEx)
+                {
+                    foreach (var validationErrors in dbEx.EntityValidationErrors)
+                    {
+                        foreach (var validationError in validationErrors.ValidationErrors)
+                        {
+                            Trace.TraceInformation("Property: {0} Error: {1} Entity: {2}", validationError.PropertyName, validationError.ErrorMessage, validationErrors.Entry.Entity.GetType().FullName);
+                        }
+                    }
+                }
+
                 return RedirectToAction("Index");
             }
 
