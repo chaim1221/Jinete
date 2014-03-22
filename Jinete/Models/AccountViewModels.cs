@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Jinete.Models
 {
-    public class UserSettingsViewModel
+    public class UserSettingsViewModel 
     {
         public string ProviderUserKey { get; set; }
         public string UserName { get; set; }

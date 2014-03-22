@@ -1,0 +1,163 @@
+﻿@using Jinete.ViewModels
+@using Resources
+@model NotebookEditModel
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+<h2>Edit</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <h4>Notebook</h4>
+        <hr />
+        @Html.ValidationSummary(true)
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.EquipmentName, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.EquipmentName)
+                @Html.ValidationMessageFor(model => model.EquipmentName)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.SerialNumber, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.SerialNumber)
+                @Html.ValidationMessageFor(model => model.SerialNumber)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.PurchasePrice, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.PurchasePrice)
+                @Html.ValidationMessageFor(model => model.PurchasePrice)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Discarded, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Discarded)
+                @Html.ValidationMessageFor(model => model.Discarded)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.LostOrStolen, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.LostOrStolen)
+                @Html.ValidationMessageFor(model => model.LostOrStolen)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Users, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(m => m.ApplicationUserId, Model.Users)
+                @Html.ValidationMessageFor(model => model.Users)
+            </div>
+        </div>
+            
+        @if (Model.dtSold != null)
+        { 
+        <table>
+            <tr>
+                <th>
+                    Sold on
+                </th>
+                <th>
+                    Amount
+                </th>
+            </tr>
+            <tr>
+                <td>
+                    @Html.DisplayFor(model => model.dtSold)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => model.SalePrice)
+                </td>
+            </tr>
+        </table>
+        }
+        else
+        {
+            <div class="form-group">
+                @Html.LabelFor(model => model.dtSold, new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(m => m.dtSold)
+                    @Html.ValidationMessageFor(model => model.dtSold)
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.SalePrice, new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(m => m.SalePrice)
+                    @Html.ValidationMessageFor(model => model.SalePrice)
+                </div>
+            </div>
+        }
+        
+        @if (Model.Checkouts.Any())
+        {
+            <table class="table">
+                <tr>
+                    <th>
+                        @Equipment.Actions
+                    </th>
+                    <th>
+                        @Equipment.UserName
+                    </th>
+                    <th>
+                        @Equipment.CheckedOut
+                    </th>
+                    <th>
+                        @Equipment.CheckedIn
+                    </th>
+                </tr>
+
+                @foreach (var item in Model.Checkouts)
+                {
+                    <tr>
+                        <td>
+                            @Html.ActionLink("Return", "Notebook", new { id = Model.NotebookId })
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Username)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.dtCheckedOut)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.dtReturned)
+                        </td>
+                    </tr>
+                }
+            </table>
+        }
+        else
+        {
+            <p>This item has not been checked out.</p>
+        }
+
+        @Html.HiddenFor(model => model.NotebookId)
+        @Html.HiddenFor(model => model.isCheckedOut)
+
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Save" class="btn btn-default" />
+                </div>
+            </div>
+</div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>

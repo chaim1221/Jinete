@@ -1,8 +1,28 @@
-﻿@{
-    ViewBag.Title = "Home Page";
+﻿@using Microsoft.AspNet.Identity
+@if (Request.IsAuthenticated)
+{
+    using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
+    {
+        @Html.AntiForgeryToken()
+
+        {
+            ViewBag.Title = "Home Page";
+        }
+
+        <div class="jumbotron">
+            <h1>Jinete</h1>
+            <p> You're logged in! Now you can easily see what electronic equipment is available for checkout within the organization. Navigate the page using the links along the top.</p>
+        </div>
+    }
 }
+
+else
+
+{
 
 <div class="jumbotron">
     <h1>Jinete</h1>
-    <p class="lead">Welcome to the Jinete website. Please use the links at the top to navigate the site.</p>
+    <p class="lead">Welcome to Jinete, an open-source program to keep track of equipment such as laptops, cameras, and tablets. Log-in to navigate the site and begin checking out electronic equipment!</p>
 </div>
+
+}
