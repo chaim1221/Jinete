@@ -1,5 +1,5 @@
 ﻿@using Resources
-@model Jinete.ViewModels.NotebookViewModel
+@model Jinete.ViewModels.PrinterViewModel
 
 @{
     ViewBag.Title = "Details";
@@ -8,47 +8,47 @@
 <h2>Details</h2>
 
 <div>
-    <h4>Notebook</h4>
+    <h4>Printer</h4>
 	<hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model._notebook.EquipmentName)
+            @Html.DisplayNameFor(model => model._printer.EquipmentName)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model._notebook.EquipmentName)
+            @Html.DisplayFor(model => model._printer.EquipmentName)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model._notebook.SerialNumber)
+            @Html.DisplayNameFor(model => model._printer.SerialNumber)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model._notebook.SerialNumber)
+            @Html.DisplayFor(model => model._printer.SerialNumber)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model._notebook.PurchasePrice)
+            @Html.DisplayNameFor(model => model._printer.PurchasePrice)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model._notebook.PurchasePrice)
+            @Html.DisplayFor(model => model._printer.PurchasePrice)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model._notebook.Discarded)
+            @Html.DisplayNameFor(model => model._printer.Discarded)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model._notebook.Discarded)
+            @Html.DisplayFor(model => model._printer.Discarded)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model._notebook.LostOrStolen)
+            @Html.DisplayNameFor(model => model._printer.LostOrStolen)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model._notebook.LostOrStolen)
+            @Html.DisplayFor(model => model._printer.LostOrStolen)
         </dd>
 
     </dl>
@@ -58,19 +58,19 @@
     <dl class="dl-horizontal">
 
         <dt>
-            @Html.DisplayNameFor(model => model._notebook.ApplicationUser.UserName)
+            @Html.DisplayNameFor(model => model._printer.ApplicationUser.UserName)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model._notebook.ApplicationUser.FirstName) @Html.DisplayFor(model => model._notebook.ApplicationUser.LastName)
+            @Html.DisplayFor(model => model._printer.ApplicationUser.FirstName) @Html.DisplayFor(model => model._printer.ApplicationUser.LastName)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model._notebook.ApplicationUser.Address)
+            @Html.DisplayNameFor(model => model._printer.ApplicationUser.Address)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model._notebook.ApplicationUser.Address)
+            @Html.DisplayFor(model => model._printer.ApplicationUser.Address)
         </dd>
 
 
@@ -79,23 +79,23 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model._notebook.ApplicationUser.City), @Html.DisplayFor(model => model._notebook.ApplicationUser.State) @Html.DisplayFor(model => model._notebook.ApplicationUser.Zip) 
+            @Html.DisplayFor(model => model._printer.ApplicationUser.City), @Html.DisplayFor(model => model._printer.ApplicationUser.State) @Html.DisplayFor(model => model._printer.ApplicationUser.Zip) 
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model._notebook.ApplicationUser.Email)
+            @Html.DisplayNameFor(model => model._printer.ApplicationUser.Email)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model._notebook.ApplicationUser.Email)
+            @Html.DisplayFor(model => model._printer.ApplicationUser.Email)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model._notebook.ApplicationUser.Phone)
+            @Html.DisplayNameFor(model => model._printer.ApplicationUser.Phone)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model._notebook.ApplicationUser.Phone)
+            @Html.DisplayFor(model => model._printer.ApplicationUser.Phone)
         </dd>
 
 </dl>
@@ -118,7 +118,7 @@
                     </th>
                 </tr>
 
-                @foreach (var item in Model._notebook.Checkouts)
+                @foreach (var item in Model._printer.Checkouts)
                 {
                     <tr>
                         <td>
@@ -149,10 +149,10 @@
                     <th>Amount</th>
                 <tr>
                     <th>
-                        @Html.DisplayFor(model => model._notebook.Sale.dtSold)
+                        @Html.DisplayFor(model => model._printer.Sale.dtSold)
                     </th>
                     <th>
-                        @Html.DisplayFor(model => model._notebook.Sale.SalePrice)
+                        @Html.DisplayFor(model => model._printer.Sale.SalePrice)
                     </th>
                 </tr>
             </table>
@@ -160,6 +160,6 @@
         
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model._notebook.NotebookId }) |
+    @Html.ActionLink("Edit", "Edit", new { id = Model._printer.PrinterId }) |
     @Html.ActionLink("Back to List", "Index")
 </p>

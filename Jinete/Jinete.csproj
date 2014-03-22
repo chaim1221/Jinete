@@ -166,6 +166,7 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\PrinterController.cs" />
     <Compile Include="Controllers\NotebookController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -286,6 +287,12 @@
     <Content Include="Views\Account\Delete.cshtml" />
     <Content Include="Views\Notebook\Checkout.cshtml" />
     <Content Include="Views\Shared\_EquipmentPartial.cshtml" />
+    <Content Include="Views\Printer\Checkout.cshtml" />
+    <Content Include="Views\Printer\Create.cshtml" />
+    <Content Include="Views\Printer\Delete.cshtml" />
+    <Content Include="Views\Printer\Details.cshtml" />
+    <Content Include="Views\Printer\Edit.cshtml" />
+    <Content Include="Views\Printer\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

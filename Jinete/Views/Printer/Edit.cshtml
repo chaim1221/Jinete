@@ -1,6 +1,6 @@
 ﻿@using Jinete.ViewModels
 @using Resources
-@model NotebookEditModel
+@model PrinterEditModel
 
 @{
     ViewBag.Title = "Edit";
@@ -13,7 +13,7 @@
     @Html.AntiForgeryToken()
     
     <div class="form-horizontal">
-        <h4>Notebook</h4>
+        <h4>Printer</h4>
         <hr />
         @Html.ValidationSummary(true)
 
@@ -126,7 +126,7 @@
                 {
                     <tr>
                         <td>
-                            @Html.ActionLink("Return", "Notebook", new { id = Model.NotebookId })
+                            @Html.ActionLink("Return", "Printer", new { id = Model.PrinterId })
                         </td>
                         <td>
                             @Html.DisplayFor(modelItem => item.Username)
@@ -146,7 +146,7 @@
             <p>This item has not been checked out.</p>
         }
 
-        @Html.HiddenFor(model => model.NotebookId)
+        @Html.HiddenFor(model => model.PrinterId)
         @Html.HiddenFor(model => model.isCheckedOut)
 
 

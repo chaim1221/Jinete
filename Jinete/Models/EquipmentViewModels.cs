@@ -9,6 +9,44 @@ using Jinete.Models;
 
 namespace Jinete.ViewModels
 {
+     public class PrinterViewModel : EquipmentViewModel
+    {
+        public Printer _printer { get; set; }
+    }
+
+    public class PrinterEditModel : EquipmentEditModel
+    {
+        public PrinterEditModel() { }
+        public PrinterEditModel(Printer _printer)
+        {
+            this.PrinterId = _printer.PrinterId;
+            this.EquipmentName = _printer.EquipmentName;
+            this.SerialNumber = _printer.SerialNumber;
+            this.PurchasePrice = _printer.PurchasePrice;
+            this.Discarded = _printer.Discarded;
+            this.LostOrStolen = _printer.LostOrStolen;
+            this.isCheckedOut = _printer.isCheckedOut;
+            this.ApplicationUserId = _printer.ApplicationUser.Id;
+            this.Checkouts = _printer.Checkouts == null ? new List<CheckoutViewModel>() { } : _printer.Checkouts
+                .Select(x => new CheckoutViewModel
+                {
+                    dtCheckedOut = x.dtCheckedOut,
+                    dtReturned = x.dtReturned,
+                    Username = x.ApplicationUser.FirstName + " " + x.ApplicationUser.LastName
+                })
+                .ToList();
+            if (_printer.Sale != null)
+            {
+                this.dtSold = _printer.Sale.dtSold;
+                this.SalePrice = _printer.Sale.SalePrice;
+            }
+        }
+
+        [Required]
+        public int PrinterId { get; set; }
+    }
+
+
     public class NotebookViewModel : EquipmentViewModel
     {
         public Notebook _notebook { get; set; }

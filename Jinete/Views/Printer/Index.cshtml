@@ -1,6 +1,6 @@
 ﻿@using Jinete.ViewModels
 @using Resources
-@model IEnumerable<NotebookViewModel>
+@model IEnumerable<PrinterViewModel>
 
 @{
     ViewBag.Title = "Index";
@@ -45,17 +45,17 @@
 @foreach (var item in Model) {
     <tr>
         <td>
-            @if (item._notebook.isCheckedOut == true)
+            @if (item._printer.isCheckedOut == true)
             {
-                @Html.ActionLink("Return", "Return", new { id = item._notebook.NotebookId } )
+                @Html.ActionLink("Return", "Return", new { id = item._printer.PrinterId } )
             } else {
-                @Html.ActionLink("Check Out", "Checkout", new { id = item._notebook.NotebookId })
+                @Html.ActionLink("Check Out", "Checkout", new { id = item._printer.PrinterId })
             }<br />
-            @Html.ActionLink("Details", "Details", new { id = item._notebook.NotebookId })<br />
-            @Html.ActionLink("Edit", "Edit", new { id = item._notebook.NotebookId })<br />
+            @Html.ActionLink("Details", "Details", new { id = item._printer.PrinterId })<br />
+            @Html.ActionLink("Edit", "Edit", new { id = item._printer.PrinterId })<br />
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item._notebook.EquipmentName)
+            @Html.DisplayFor(modelItem => item._printer.EquipmentName)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item._username)
@@ -70,13 +70,13 @@
             @Html.DisplayFor(modelItem => item._sold.dtSold)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item._notebook.Discarded)
+            @Html.DisplayFor(modelItem => item._printer.Discarded)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item._notebook.LostOrStolen)
+            @Html.DisplayFor(modelItem => item._printer.LostOrStolen)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item._notebook.SerialNumber)
+            @Html.DisplayFor(modelItem => item._printer.SerialNumber)
         </td>
     </tr>
 }
