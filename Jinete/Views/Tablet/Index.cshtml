@@ -1,0 +1,84 @@
+﻿@using Jinete.ViewModels
+@using Resources
+@model IEnumerable<TabletViewModel>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Equipment.Actions
+        </th>
+        <th>
+            @Equipment.EquipmentName
+        </th>
+        <th>
+            @Equipment.UserName
+        </th>
+        <th>
+            @Equipment.LastCheckedOut
+        </th>
+        <th>
+            @Equipment.LastCheckedIn
+        </th>
+        <th>
+            @Equipment.Sold
+        </th>
+        <th>
+            @Equipment.Discarded
+        </th>
+        <th>
+            @Equipment.LostOrStolen
+        </th>
+        <th>
+            @Equipment.SerialNumber
+        </th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @if (item._tablet.isCheckedOut == true)
+            {
+                @Html.ActionLink("Return", "Return", new { id = item._tablet.TabletId } )
+            } else {
+                @Html.ActionLink("Check Out", "Checkout", new { id = item._tablet.TabletId })
+            }<br />
+            @Html.ActionLink("Details", "Details", new { id = item._tablet.TabletId })<br />
+            @Html.ActionLink("Edit", "Edit", new { id = item._tablet.TabletId })<br />
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item._tablet.EquipmentName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item._username)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item._lastcheckout.dtCheckedOut)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item._lastcheckout.dtReturned)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item._sold.dtSold)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item._tablet.Discarded)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item._tablet.LostOrStolen)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item._tablet.SerialNumber)
+        </td>
+    </tr>
+}
+
+</table>

@@ -1,18 +1,18 @@
 ﻿@using Microsoft.AspNet.Identity
 @if (Request.IsAuthenticated)
-{
-    using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
-    {
-        @Html.AntiForgeryToken()
-
-     <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav navbar-left">
-                    <li>@Html.ActionLink("Notebooks", "Index", "Notebook")</li>
-                    <li>@Html.ActionLink("Printers", "Index", "Printer")</li>
-                </ul>
-            </div>
+{ 
+    <div class="navbar-collapse collapse">
+        <ul class="nav navbar-nav"> 
+            <li>@Html.ActionLink("Notebooks", "Index", "Notebook")</li>
+            <li>@Html.ActionLink("Laptops", "Index", "Laptop")</li>
+            <li>@Html.ActionLink("Desktops", "Index", "Desktop")</li>
+            <li>@Html.ActionLink("Monitors", "Index", "Monitor")</li>
+            <li>@Html.ActionLink("Cameras", "Index", "Camera")</li>
+            <li>@Html.ActionLink("Mobile Phones", "Index", "MobilePhone")</li>
+            <li>@Html.ActionLink("Telephones", "Index", "Telephone")</li>
+            <li>@Html.ActionLink("Tablets", "Index", "Tablet")</li>
+            <li>@Html.ActionLink("Printers", "Index", "Printer")</li>
+        </ul>
+        </div>
+} 
     
-    
-    }
-}
-

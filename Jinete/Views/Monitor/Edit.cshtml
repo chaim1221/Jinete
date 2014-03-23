@@ -1,6 +1,6 @@
 ﻿@using Jinete.ViewModels
 @using Resources
-@model TelephoneEditModel
+@model MonitorEditModel
 
 @{
     ViewBag.Title = "Edit";
@@ -11,9 +11,9 @@
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-
+    
     <div class="form-horizontal">
-        <h4>Telephone</h4>
+        <h4>Monitor</h4>
         <hr />
         @Html.ValidationSummary(true)
 
@@ -64,27 +64,27 @@
                 @Html.ValidationMessageFor(model => model.Users)
             </div>
         </div>
-
+            
         @if (Model.dtSold != null)
-        {
-            <table>
-                <tr>
-                    <th>
-                        Sold on
-                    </th>
-                    <th>
-                        Amount
-                    </th>
-                </tr>
-                <tr>
-                    <td>
-                        @Html.DisplayFor(model => model.dtSold)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(model => model.SalePrice)
-                    </td>
-                </tr>
-            </table>
+        { 
+        <table>
+            <tr>
+                <th>
+                    Sold on
+                </th>
+                <th>
+                    Amount
+                </th>
+            </tr>
+            <tr>
+                <td>
+                    @Html.DisplayFor(model => model.dtSold)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => model.SalePrice)
+                </td>
+            </tr>
+        </table>
         }
         else
         {
@@ -103,7 +103,7 @@
                 </div>
             </div>
         }
-
+        
         @if (Model.Checkouts.Any())
         {
             <table class="table">
@@ -126,7 +126,7 @@
                 {
                     <tr>
                         <td>
-                            @Html.ActionLink("Return", "Telephone", new { id = Model.TelephoneId })
+                            @Html.ActionLink("Return", "Monitor", new { id = Model.MonitorId })
                         </td>
                         <td>
                             @Html.DisplayFor(modelItem => item.Username)
@@ -146,19 +146,18 @@
             <p>This item has not been checked out.</p>
         }
 
-        @Html.HiddenFor(model => model.TelephoneId)
+        @Html.HiddenFor(model => model.MonitorId)
         @Html.HiddenFor(model => model.isCheckedOut)
 
 
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Save" class="btn btn-default" />
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Save" class="btn btn-default" />
+                </div>
             </div>
-        </div>
-    </div>
+</div>
 }
 
 <div>
     @Html.ActionLink("Back to List", "Index")
 </div>
-

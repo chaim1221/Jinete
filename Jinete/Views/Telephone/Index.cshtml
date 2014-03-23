@@ -1,4 +1,6 @@
-﻿@model IEnumerable<Jinete.Models.Telephone>
+﻿@using Jinete.ViewModels
+@using Resources
+@model IEnumerable<TelephoneViewModel>
 
 @{
     ViewBag.Title = "Index";
@@ -12,52 +14,74 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.EquipmentName)
+            @Equipment.Actions
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.SerialNumber)
+            @Equipment.EquipmentName
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.PurchasePrice)
+            @Equipment.UserName
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Discarded)
+            @Equipment.LastCheckedOut
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.LostOrStolen)
+            @Equipment.LastCheckedIn
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.isCheckedOut)
+            @Equipment.Sold
         </th>
-        <th></th>
+        <th>
+            @Equipment.Discarded
+        </th>
+        <th>
+            @Equipment.LostOrStolen
+        </th>
+        <th>
+            @Equipment.SerialNumber
+        </th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.EquipmentName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.SerialNumber)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.PurchasePrice)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Discarded)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.LostOrStolen)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.isCheckedOut)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.TelephoneId }) |
-            @Html.ActionLink("Details", "Details", new { id=item.TelephoneId }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.TelephoneId })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @if (item._telephone.isCheckedOut == true)
+                {
+                    @Html.ActionLink("Return", "Return", new { id = item._telephone.TelephoneId })
+                }
+                else
+                {
+                    @Html.ActionLink("Check Out", "Checkout", new { id = item._telephone.TelephoneId })
+                }<br />
+                @Html.ActionLink("Details", "Details", new { id = item._telephone.TelephoneId })<br />
+                @Html.ActionLink("Edit", "Edit", new { id = item._telephone.TelephoneId })<br />
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item._telephone.EquipmentName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item._username)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item._lastcheckout.dtCheckedOut)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item._lastcheckout.dtReturned)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item._sold.dtSold)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item._telephone.Discarded)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item._telephone.LostOrStolen)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item._telephone.SerialNumber)
+            </td>
+        </tr>
+    }
 
 </table>

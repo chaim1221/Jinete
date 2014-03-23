@@ -1,20 +1,20 @@
-﻿@model Jinete.Models.Camera
+﻿@using Jinete.ViewModels
+@model EquipmentCreateModel
 
 @{
-    ViewBag.Title = "Edit";
+    ViewBag.Title = "Create";
 }
 
-<h2>Edit</h2>
+<h2>Create</h2>
 
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    
+
     <div class="form-horizontal">
         <h4>Camera</h4>
         <hr />
         @Html.ValidationSummary(true)
-        @Html.HiddenFor(model => model.CameraId)
 
         <div class="form-group">
             @Html.LabelFor(model => model.EquipmentName, new { @class = "control-label col-md-2" })
@@ -41,32 +41,16 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.Discarded, new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.Users, new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Discarded)
-                @Html.ValidationMessageFor(model => model.Discarded)
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.LostOrStolen, new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.LostOrStolen)
-                @Html.ValidationMessageFor(model => model.LostOrStolen)
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.isCheckedOut, new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.isCheckedOut)
-                @Html.ValidationMessageFor(model => model.isCheckedOut)
+                @Html.DropDownListFor(m => m.ApplicationUserId, Model.Users)
+                @Html.ValidationMessageFor(model => model.Users)
             </div>
         </div>
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Save" class="btn btn-default" />
+                <input type="submit" value="Create" class="btn btn-default" />
             </div>
         </div>
     </div>
@@ -75,3 +59,4 @@
 <div>
     @Html.ActionLink("Back to List", "Index")
 </div>
+

@@ -1,6 +1,6 @@
 ﻿@using Jinete.ViewModels
 @using Resources
-@model IEnumerable<MobilePhoneViewModel>
+@model IEnumerable<CameraViewModel>
 
 @{
     ViewBag.Title = "Index";
@@ -46,19 +46,19 @@
     {
         <tr>
             <td>
-                @if (item._mobilePhone.isCheckedOut == true)
+                @if (item._camera.isCheckedOut == true)
                 {
-                    @Html.ActionLink("Return", "Return", new { id = item._mobilePhone.MobilePhoneId })
+                    @Html.ActionLink("Return", "Return", new { id = item._camera.CameraId })
                 }
                 else
                 {
-                    @Html.ActionLink("Check Out", "Checkout", new { id = item._mobilePhone.MobilePhoneId })
+                    @Html.ActionLink("Check Out", "Checkout", new { id = item._camera.CameraId })
                 }<br />
-                @Html.ActionLink("Details", "Details", new { id = item._mobilePhone.MobilePhoneId })<br />
-                @Html.ActionLink("Edit", "Edit", new { id = item._mobilePhone.MobilePhoneId })<br />
+                @Html.ActionLink("Details", "Details", new { id = item._camera.CameraId })<br />
+                @Html.ActionLink("Edit", "Edit", new { id = item._camera.CameraId })<br />
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item._mobilePhone.EquipmentName)
+                @Html.DisplayFor(modelItem => item._camera.EquipmentName)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item._username)
@@ -73,13 +73,13 @@
                 @Html.DisplayFor(modelItem => item._sold.dtSold)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item._mobilePhone.Discarded)
+                @Html.DisplayFor(modelItem => item._camera.Discarded)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item._mobilePhone.LostOrStolen)
+                @Html.DisplayFor(modelItem => item._camera.LostOrStolen)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item._mobilePhone.SerialNumber)
+                @Html.DisplayFor(modelItem => item._camera.SerialNumber)
             </td>
         </tr>
     }

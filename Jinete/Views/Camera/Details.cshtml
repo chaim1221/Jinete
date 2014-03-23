@@ -1,5 +1,5 @@
 ﻿@using Resources
-@model Jinete.ViewModels.TelephoneViewModel
+@model Jinete.ViewModels.CameraViewModel
 
 @{
     ViewBag.Title = "Details";
@@ -8,47 +8,47 @@
 <h2>Details</h2>
 
 <div>
-    <h4>Telephone</h4>
+    <h4>Camera</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model._telephone.EquipmentName)
+            @Html.DisplayNameFor(model => model._camera.EquipmentName)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model._telephone.EquipmentName)
+            @Html.DisplayFor(model => model._camera.EquipmentName)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model._telephone.SerialNumber)
+            @Html.DisplayNameFor(model => model._camera.SerialNumber)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model._telephone.SerialNumber)
+            @Html.DisplayFor(model => model._camera.SerialNumber)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model._telephone.PurchasePrice)
+            @Html.DisplayNameFor(model => model._camera.PurchasePrice)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model._telephone.PurchasePrice)
+            @Html.DisplayFor(model => model._camera.PurchasePrice)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model._telephone.Discarded)
+            @Html.DisplayNameFor(model => model._camera.Discarded)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model._telephone.Discarded)
+            @Html.DisplayFor(model => model._camera.Discarded)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model._telephone.LostOrStolen)
+            @Html.DisplayNameFor(model => model._camera.LostOrStolen)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model._telephone.LostOrStolen)
+            @Html.DisplayFor(model => model._camera.LostOrStolen)
         </dd>
 
     </dl>
@@ -58,19 +58,19 @@
     <dl class="dl-horizontal">
 
         <dt>
-            @Html.DisplayNameFor(model => model._telephone.ApplicationUser.UserName)
+            @Html.DisplayNameFor(model => model._camera.ApplicationUser.UserName)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model._telephone.ApplicationUser.FirstName) @Html.DisplayFor(model => model._telephone.ApplicationUser.LastName)
+            @Html.DisplayFor(model => model._camera.ApplicationUser.FirstName) @Html.DisplayFor(model => model._camera.ApplicationUser.LastName)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model._telephone.ApplicationUser.Address)
+            @Html.DisplayNameFor(model => model._camera.ApplicationUser.Address)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model._telephone.ApplicationUser.Address)
+            @Html.DisplayFor(model => model._camera.ApplicationUser.Address)
         </dd>
 
 
@@ -79,23 +79,23 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model._telephone.ApplicationUser.City), @Html.DisplayFor(model => model._telephone.ApplicationUser.State) @Html.DisplayFor(model => model._telephone.ApplicationUser.Zip)
+            @Html.DisplayFor(model => model._camera.ApplicationUser.City), @Html.DisplayFor(model => model._camera.ApplicationUser.State) @Html.DisplayFor(model => model._camera.ApplicationUser.Zip)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model._telephone.ApplicationUser.Email)
+            @Html.DisplayNameFor(model => model._camera.ApplicationUser.Email)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model._telephone.ApplicationUser.Email)
+            @Html.DisplayFor(model => model._camera.ApplicationUser.Email)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model._telephone.ApplicationUser.Phone)
+            @Html.DisplayNameFor(model => model._camera.ApplicationUser.Phone)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model._telephone.ApplicationUser.Phone)
+            @Html.DisplayFor(model => model._camera.ApplicationUser.Phone)
         </dd>
 
     </dl>
@@ -118,7 +118,7 @@
                 </th>
             </tr>
 
-            @foreach (var item in Model._telephone.Checkouts)
+            @foreach (var item in Model._camera.Checkouts)
             {
                 <tr>
                     <td>
@@ -149,10 +149,10 @@
                 <th>Amount</th>
             <tr>
                 <th>
-                    @Html.DisplayFor(model => model._telephone.Sale.dtSold)
+                    @Html.DisplayFor(model => model._camera.Sale.dtSold)
                 </th>
                 <th>
-                    @Html.DisplayFor(model => model._telephone.Sale.SalePrice)
+                    @Html.DisplayFor(model => model._camera.Sale.SalePrice)
                 </th>
             </tr>
         </table>
@@ -160,6 +160,6 @@
 
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model._telephone.TelephoneId }) |
+    @Html.ActionLink("Edit", "Edit", new { id = Model._camera.CameraId }) |
     @Html.ActionLink("Back to List", "Index")
 </p>

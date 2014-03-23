@@ -17,7 +17,7 @@ using System.Diagnostics;
 
 namespace Jinete.Controllers
 {
-    public class CameraController : Controller
+    public class LaptopController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
         private UserManager<ApplicationUser> um;
@@ -28,27 +28,27 @@ namespace Jinete.Controllers
             um = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(db));
         }
 
-        // GET: /Camera/ this is what the browser is doing
+        // GET: /Laptop/ this is what the browser is doing
         [Authorize(Roles = "Administrator, Manager")]
         public ActionResult Index()
         {
-            List<CameraViewModel> cameraList = new List<CameraViewModel>();
-            var cams = db.Cameras.ToList();
+            List<LaptopViewModel> laptopList = new List<LaptopViewModel>();
+            var laps = db.Laptops.ToList();
 
-            foreach (Camera cam in cams)
+            foreach (Laptop lap in laps)
             {
-                CameraViewModel camView = new CameraViewModel();
-                ApplicationUser _user = cam.ApplicationUser;
-                camView._camera = cam;
-                camView._username = _user.FirstName + " " + _user.LastName;
-                camView._sold = cam.Sale ?? null;
-                cameraList.Add(camView);
+                LaptopViewModel lapView = new LaptopViewModel();
+                ApplicationUser _user = lap.ApplicationUser;
+                lapView._laptop = lap;
+                lapView._username = _user.FirstName + " " + _user.LastName;
+                lapView._sold = lap.Sale ?? null;
+                laptopList.Add(lapView);
             }
 
-            return View(cameraList.AsEnumerable());
+            return View(laptopList.AsEnumerable());
         }
 
-        // GET: /Camera/Checkout/5
+        // GET: /Laptop/Checkout/5
         [Authorize(Roles = "Administrator, Manager")]
         public ActionResult Checkout(int? id)
         {
@@ -66,7 +66,7 @@ namespace Jinete.Controllers
             return View(model);
         }
 
-        // POST: /Camera/Checkout/5
+        // POST: /Laptop/Checkout/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
@@ -82,15 +82,15 @@ namespace Jinete.Controllers
                         dtCheckedOut = model.dtCheckedOut//,
                         // Early attempt to create a *-1 rel.
                         //EquipmentId = model.EquipmentId,
-                        //EquipmentType = "Camera"
+                        //EquipmentType = "Laptop"
                     };
-                Camera _camera = db.Cameras.Find(model.EquipmentId);
-                ApplicationUser _user = _camera.ApplicationUser;
-                _camera.isCheckedOut = true;
-                _camera.Checkouts.Add(_checkout);
-                _camera.ApplicationUser = _user; // No fucking clue if/why this is necessary.
+                Laptop _laptop = db.Laptops.Find(model.EquipmentId);
+                ApplicationUser _user = _laptop.ApplicationUser;
+                _laptop.isCheckedOut = true;
+                _laptop.Checkouts.Add(_checkout);
+                _laptop.ApplicationUser = _user; // No fucking clue if/why this is necessary.
 
-                db.Entry(_camera).State = EntityState.Modified;
+                db.Entry(_laptop).State = EntityState.Modified;
                 try
                 {
                     db.SaveChanges();
@@ -116,19 +116,19 @@ namespace Jinete.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Camera camera = db.Cameras.Find(id);
-            if (camera == null)
+            Laptop laptop = db.Laptops.Find(id);
+            if (laptop == null)
             {
                 return HttpNotFound();
             }
             // I think I can, I think I can....
-            Checkout checkout = camera.Checkouts.OrderBy(x => x.dtCheckedOut).Last();
-            ApplicationUser CameraUser = camera.ApplicationUser;
+            Checkout checkout = laptop.Checkouts.OrderBy(x => x.dtCheckedOut).Last();
+            ApplicationUser LaptopUser = laptop.ApplicationUser;
             ApplicationUser CheckoutUser = checkout.ApplicationUser;
-            camera.isCheckedOut = false;
+            laptop.isCheckedOut = false;
             checkout.dtReturned = DateTime.Now;
             checkout.ApplicationUser = CheckoutUser;
-            camera.ApplicationUser = CameraUser; //once again the insanity
+            laptop.ApplicationUser = LaptopUser; //once again the insanity
 
             try
             {
@@ -142,7 +142,7 @@ namespace Jinete.Controllers
             return RedirectToAction("Index");
         }
 
-        // GET: /Camera/Details/5
+        // GET: /Laptop/Details/5
         [Authorize(Roles = "Administrator, Manager")]
         public ActionResult Details(int? id)
         {
@@ -150,27 +150,27 @@ namespace Jinete.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Camera camera = db.Cameras.Find(id);
-            if (camera == null)
+            Laptop laptop = db.Laptops.Find(id);
+            if (laptop == null)
             {
                 return HttpNotFound();
             }
-            CameraViewModel details = new CameraViewModel();
-            details._camera = camera;
+            LaptopViewModel details = new LaptopViewModel();
+            details._laptop = laptop;
 
-            details._lastcheckout = camera.Checkouts.Any() ? camera.Checkouts.OrderByDescending(x => x.dtCheckedOut).Select(x => new CheckoutViewModel
+            details._lastcheckout = laptop.Checkouts.Any() ? laptop.Checkouts.OrderByDescending(x => x.dtCheckedOut).Select(x => new CheckoutViewModel
                 {
                     dtCheckedOut = x.dtCheckedOut,
                     dtReturned = x.dtReturned,
                     Username = x.ApplicationUser.FirstName + " " + x.ApplicationUser.LastName
                 }).First() : null;
 
-            details._sold = camera.Sale == null ? null : camera.Sale;
+            details._sold = laptop.Sale == null ? null : laptop.Sale;
 
             return View(details);
         }
 
-        // GET: /Camera/Create
+        // GET: /Laptop/Create
         [Authorize(Roles = "Administrator, Manager")]
         public ActionResult Create()
         {
@@ -180,7 +180,7 @@ namespace Jinete.Controllers
             return View(model);
         }
 
-        // POST: /Camera/Create
+        // POST: /Laptop/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
@@ -190,7 +190,7 @@ namespace Jinete.Controllers
         {
             if (ModelState.IsValid)
             {
-                Camera _camera = new Camera
+                Laptop _laptop = new Laptop
                     {
                         ApplicationUser = um.FindById(model.ApplicationUserId),
                         EquipmentName = model.EquipmentName,
@@ -198,7 +198,7 @@ namespace Jinete.Controllers
                         PurchasePrice = model.PurchasePrice,
                         isCheckedOut = false
                     };
-                db.Cameras.Add(_camera);
+                db.Laptops.Add(_laptop);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
@@ -210,7 +210,7 @@ namespace Jinete.Controllers
             return View(model);
         }
 
-        // GET: /Camera/Edit/5
+        // GET: /Laptop/Edit/5
         [Authorize(Roles = "Administrator, Manager")]
         public ActionResult Edit(int? id)
         {
@@ -219,38 +219,38 @@ namespace Jinete.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            Camera _camera = db.Cameras.Find(id);
-            if (_camera == null)
+            Laptop _laptop = db.Laptops.Find(id);
+            if (_laptop == null)
             {
                 return HttpNotFound();
             }
 
-            CameraEditModel model = new CameraEditModel(_camera);
+            LaptopEditModel model = new LaptopEditModel(_laptop);
 
-            string selectId = _camera.ApplicationUser.Id;
+            string selectId = _laptop.ApplicationUser.Id;
             model.Users = FullNameUserList(db, selectId);
 
             return View(model);
         }
 
-        // POST: /Camera/Edit/5
+        // POST: /Laptop/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Administrator, Manager")]
-        public ActionResult Edit(CameraEditModel model)
+        public ActionResult Edit(LaptopEditModel model)
         {
             if (ModelState.IsValid)
             {
-                Camera _camera = db.Cameras.Find(model.CameraId);
+                Laptop _laptop = db.Laptops.Find(model.LaptopId);
 
-                _camera.ApplicationUser = um.FindById(model.ApplicationUserId);
-                _camera.Discarded = model.Discarded;
-                _camera.EquipmentName = model.EquipmentName;
-                _camera.LostOrStolen = model.LostOrStolen;
-                _camera.PurchasePrice = model.PurchasePrice;
-                _camera.SerialNumber = model.SerialNumber;
+                _laptop.ApplicationUser = um.FindById(model.ApplicationUserId);
+                _laptop.Discarded = model.Discarded;
+                _laptop.EquipmentName = model.EquipmentName;
+                _laptop.LostOrStolen = model.LostOrStolen;
+                _laptop.PurchasePrice = model.PurchasePrice;
+                _laptop.SerialNumber = model.SerialNumber;
 
                 if (model.dtSold != null)
                 {
@@ -261,10 +261,10 @@ namespace Jinete.Controllers
                         };
                     db.Sales.Add(_sale);
                     db.SaveChanges();
-                    _camera.Sale = _sale;
+                    _laptop.Sale = _sale;
                 }
 
-                db.Entry(_camera).State = EntityState.Modified;
+                db.Entry(_laptop).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
@@ -276,7 +276,7 @@ namespace Jinete.Controllers
             return View(model);
         }
 
-        // GET: /Camera/Delete/5
+        // GET: /Laptop/Delete/5
         [Authorize(Roles = "Administrator")]
         public ActionResult Delete(int? id)
         {
@@ -284,22 +284,22 @@ namespace Jinete.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Camera camera = db.Cameras.Find(id);
-            if (camera == null)
+            Laptop laptop = db.Laptops.Find(id);
+            if (laptop == null)
             {
                 return HttpNotFound();
             }
-            return View(camera);
+            return View(laptop);
         }
 
-        // POST: /Camera/Delete/5
+        // POST: /Laptop/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Administrator")]
         public ActionResult DeleteConfirmed(int id)
         {
-            Camera camera = db.Cameras.Find(id);
-            db.Cameras.Remove(camera);
+            Laptop laptop = db.Laptops.Find(id);
+            db.Laptops.Remove(laptop);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

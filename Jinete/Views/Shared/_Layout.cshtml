@@ -19,12 +19,7 @@
                 </button>
             @Html.ActionLink("Jinete", "Index", "Home", null, new { @class = "navbar-brand" })
             </div>
-            <div class="navbar-collapse collapse">
-                @*
-                Stop putting this in here!!! The brand goes OUTSIDE the drop-down.
-                <ul class="nav navbar-nav"> 
-                    <li>@Html.ActionLink("Jinete", "Index", "Home")</li>
-                </ul>*@
+            <div>
                 @Html.Partial("_EquipmentPartial")
                 @Html.Partial("_LoginPartial")
             </div>

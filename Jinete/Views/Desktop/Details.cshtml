@@ -1,0 +1,165 @@
+﻿@using Resources
+@model Jinete.ViewModels.DesktopViewModel
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Desktop</h4>
+	<hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model._desktop.EquipmentName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model._desktop.EquipmentName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model._desktop.SerialNumber)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model._desktop.SerialNumber)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model._desktop.PurchasePrice)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model._desktop.PurchasePrice)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model._desktop.Discarded)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model._desktop.Discarded)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model._desktop.LostOrStolen)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model._desktop.LostOrStolen)
+        </dd>
+
+    </dl>
+
+    <h4>User Information</h4>
+    <hr />
+    <dl class="dl-horizontal">
+
+        <dt>
+            @Html.DisplayNameFor(model => model._desktop.ApplicationUser.UserName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model._desktop.ApplicationUser.FirstName) @Html.DisplayFor(model => model._desktop.ApplicationUser.LastName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model._desktop.ApplicationUser.Address)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model._desktop.ApplicationUser.Address)
+        </dd>
+
+
+        <dt>
+         
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model._desktop.ApplicationUser.City), @Html.DisplayFor(model => model._desktop.ApplicationUser.State) @Html.DisplayFor(model => model._desktop.ApplicationUser.Zip) 
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model._desktop.ApplicationUser.Email)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model._desktop.ApplicationUser.Email)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model._desktop.ApplicationUser.Phone)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model._desktop.ApplicationUser.Phone)
+        </dd>
+
+</dl>
+
+    <h4>Checkout Information</h4>
+    <hr />
+
+        @if (Model._lastcheckout != null)
+        {
+            <table class="table">
+                <tr>
+                    <th>
+                        @Equipment.UserName
+                    </th>
+                    <th>
+                        @Equipment.CheckedOut
+                    </th>
+                    <th>
+                        @Equipment.CheckedIn
+                    </th>
+                </tr>
+
+                @foreach (var item in Model._desktop.Checkouts)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ApplicationUser.FirstName) @Html.DisplayFor(modelItem => item.ApplicationUser.LastName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.dtCheckedOut)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.dtReturned)
+                        </td>
+                    </tr>
+                }
+            </table>
+        }
+        else
+        {
+            <p>This item has not been checked out.</p>
+        }
+
+        @if (Model._sold != null)
+        {
+            <h4>Sale Information</h4>
+            <hr />
+            <table>
+                <tr>
+                    <th>Sold on</th>
+                    <th>Amount</th>
+                <tr>
+                    <th>
+                        @Html.DisplayFor(model => model._desktop.Sale.dtSold)
+                    </th>
+                    <th>
+                        @Html.DisplayFor(model => model._desktop.Sale.SalePrice)
+                    </th>
+                </tr>
+            </table>
+        }
+        
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model._desktop.DesktopId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
