@@ -1,8 +1,12 @@
 ﻿@using Microsoft.AspNet.Identity
 @if (Request.IsAuthenticated)
-{ 
-    <div class="navbar-collapse collapse">
-        <ul class="nav navbar-nav"> 
+{
+    <div class="btn-group pull-left">
+        <button type="button" class="btn btn-toolbar navbar-btn dropdown-toggle" data-toggle="dropdown">
+            Equipment
+            <span class="caret"></span>
+        </button>
+        <ul class="dropdown-menu" role="menu">
             <li>@Html.ActionLink("Notebooks", "Index", "Notebook")</li>
             <li>@Html.ActionLink("Laptops", "Index", "Laptop")</li>
             <li>@Html.ActionLink("Desktops", "Index", "Desktop")</li>
@@ -13,6 +17,6 @@
             <li>@Html.ActionLink("Tablets", "Index", "Tablet")</li>
             <li>@Html.ActionLink("Printers", "Index", "Printer")</li>
         </ul>
-        </div>
+    </div>
 } 
     

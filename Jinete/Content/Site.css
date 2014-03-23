@@ -33,6 +33,11 @@ input[type="checkbox"].input-validation-error {
     border: 0 none;
 }
 
+.jinetote {
+    font-size: 2em;
+    margin: 0 1em 0 0;
+}
+
 .validation-summary-errors {
     color: #b94a48;
 }
