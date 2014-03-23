@@ -1,0 +1,77 @@
+﻿@model Jinete.Models.MobilePhone
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+<h2>Edit</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <h4>MobilePhone</h4>
+        <hr />
+        @Html.ValidationSummary(true)
+        @Html.HiddenFor(model => model.MobilePhoneId)
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.EquipmentName, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.EquipmentName)
+                @Html.ValidationMessageFor(model => model.EquipmentName)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.SerialNumber, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.SerialNumber)
+                @Html.ValidationMessageFor(model => model.SerialNumber)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.PurchasePrice, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.PurchasePrice)
+                @Html.ValidationMessageFor(model => model.PurchasePrice)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Discarded, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Discarded)
+                @Html.ValidationMessageFor(model => model.Discarded)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.LostOrStolen, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.LostOrStolen)
+                @Html.ValidationMessageFor(model => model.LostOrStolen)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.isCheckedOut, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.isCheckedOut)
+                @Html.ValidationMessageFor(model => model.isCheckedOut)
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Save" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>

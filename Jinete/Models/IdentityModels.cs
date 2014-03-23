@@ -43,5 +43,11 @@ namespace Jinete.Models
         public System.Data.Entity.DbSet<Jinete.Models.Notebook> Notebooks { get; set; }
         public System.Data.Entity.DbSet<Jinete.Models.Printer> Printers { get; set; }
         public System.Data.Entity.DbSet<Jinete.Models.Tablet> Tablets { get; set; }
+
+        public System.Data.Entity.DbSet<Jinete.Models.Telephone> Telephones { get; set; }
+
+        public System.Data.Entity.DbSet<Jinete.Models.MobilePhone> MobilePhones { get; set; }
+
+        public System.Data.Entity.DbSet<Jinete.Models.Camera> Cameras { get; set; }
     }
 }

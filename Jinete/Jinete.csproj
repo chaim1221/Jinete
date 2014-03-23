@@ -11,7 +11,7 @@
     <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>MacheteEquipment</RootNamespace>
+    <RootNamespace>Jinete</RootNamespace>
     <AssemblyName>MacheteEquipment</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <MvcBuildViews>false</MvcBuildViews>
@@ -165,9 +165,12 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\CameraController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\MobilePhoneController.cs" />
     <Compile Include="Controllers\PrinterController.cs" />
     <Compile Include="Controllers\NotebookController.cs" />
+    <Compile Include="Controllers\TelephoneController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -218,6 +221,10 @@
     <Compile Include="Migrations\201403200409139_ForeignKeysStillSuck.cs" />
     <Compile Include="Migrations\201403200409139_ForeignKeysStillSuck.Designer.cs">
       <DependentUpon>201403200409139_ForeignKeysStillSuck.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201403231654447_SmallDevicesForReal.cs" />
+    <Compile Include="Migrations\201403231654447_SmallDevicesForReal.Designer.cs">
+      <DependentUpon>201403231654447_SmallDevicesForReal.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -293,6 +300,21 @@
     <Content Include="Views\Printer\Details.cshtml" />
     <Content Include="Views\Printer\Edit.cshtml" />
     <Content Include="Views\Printer\Index.cshtml" />
+    <Content Include="Views\Telephone\Create.cshtml" />
+    <Content Include="Views\Telephone\Delete.cshtml" />
+    <Content Include="Views\Telephone\Details.cshtml" />
+    <Content Include="Views\Telephone\Edit.cshtml" />
+    <Content Include="Views\Telephone\Index.cshtml" />
+    <Content Include="Views\MobilePhone\Create.cshtml" />
+    <Content Include="Views\MobilePhone\Delete.cshtml" />
+    <Content Include="Views\MobilePhone\Details.cshtml" />
+    <Content Include="Views\MobilePhone\Edit.cshtml" />
+    <Content Include="Views\MobilePhone\Index.cshtml" />
+    <Content Include="Views\Default1\Create.cshtml" />
+    <Content Include="Views\Default1\Delete.cshtml" />
+    <Content Include="Views\Default1\Details.cshtml" />
+    <Content Include="Views\Default1\Edit.cshtml" />
+    <Content Include="Views\Default1\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -344,6 +366,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201403200409139_ForeignKeysStillSuck.resx">
       <DependentUpon>201403200409139_ForeignKeysStillSuck.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201403231654447_SmallDevicesForReal.resx">
+      <DependentUpon>201403231654447_SmallDevicesForReal.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
