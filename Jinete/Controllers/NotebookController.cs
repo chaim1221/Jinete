@@ -41,6 +41,16 @@ namespace Jinete.Controllers
                 ApplicationUser _user = note.ApplicationUser;
                 noteView._notebook = note;
                 noteView._username = _user.FirstName + " " + _user.LastName;
+                noteView._lastcheckout = note.Checkouts
+                    .OrderBy(x => x.dtCheckedOut)
+                    .LastOrDefault() == null ? null :
+                        note.Checkouts.OrderBy(x => x.dtCheckedOut)
+                        .Select(x => new CheckoutViewModel
+                        {
+                            dtCheckedOut = x.dtCheckedOut,
+                            dtReturned = x.dtReturned,
+                            Username = x.ApplicationUser.FirstName + " " + x.ApplicationUser.LastName
+                        }).LastOrDefault();
                 noteView._sold = note.Sale ?? null;
                 notebookList.Add(noteView);
             }
