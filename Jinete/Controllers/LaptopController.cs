@@ -41,6 +41,16 @@ namespace Jinete.Controllers
                 ApplicationUser _user = lap.ApplicationUser;
                 lapView._laptop = lap;
                 lapView._username = _user.FirstName + " " + _user.LastName;
+                lapView._lastcheckout = lap.Checkouts
+                    .OrderBy(x => x.dtCheckedOut)
+                    .LastOrDefault() == null ? null :
+                        lap.Checkouts.OrderBy(x => x.dtCheckedOut)
+                        .Select(x => new CheckoutViewModel
+                        {
+                            dtCheckedOut = x.dtCheckedOut,
+                            dtReturned = x.dtReturned,
+                            Username = x.ApplicationUser.FirstName + " " + x.ApplicationUser.LastName
+                        }).LastOrDefault();
                 lapView._sold = lap.Sale ?? null;
                 laptopList.Add(lapView);
             }

@@ -41,6 +41,16 @@ namespace Jinete.Controllers
                 ApplicationUser _user = mon.ApplicationUser;
                 monView._monitor = mon;
                 monView._username = _user.FirstName + " " + _user.LastName;
+                monView._lastcheckout = mon.Checkouts
+                    .OrderBy(x => x.dtCheckedOut)
+                    .LastOrDefault() == null ? null :
+                        mon.Checkouts.OrderBy(x => x.dtCheckedOut)
+                        .Select(x => new CheckoutViewModel
+                        {
+                            dtCheckedOut = x.dtCheckedOut,
+                            dtReturned = x.dtReturned,
+                            Username = x.ApplicationUser.FirstName + " " + x.ApplicationUser.LastName
+                        }).LastOrDefault();
                 monView._sold = mon.Sale ?? null;
                 monitorList.Add(monView);
             }

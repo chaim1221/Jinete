@@ -41,6 +41,16 @@ namespace Jinete.Controllers
                 ApplicationUser _user = desk.ApplicationUser;
                 deskView._desktop = desk;
                 deskView._username = _user.FirstName + " " + _user.LastName;
+                deskView._lastcheckout = desk.Checkouts
+                    .OrderBy(x => x.dtCheckedOut)
+                    .LastOrDefault() == null ? null :
+                        desk.Checkouts.OrderBy(x => x.dtCheckedOut)
+                        .Select(x => new CheckoutViewModel
+                        {
+                            dtCheckedOut = x.dtCheckedOut,
+                            dtReturned = x.dtReturned,
+                            Username = x.ApplicationUser.FirstName + " " + x.ApplicationUser.LastName
+                        }).LastOrDefault();
                 deskView._sold = desk.Sale ?? null;
                 desktopList.Add(deskView);
             }

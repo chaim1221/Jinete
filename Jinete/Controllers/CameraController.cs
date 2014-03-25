@@ -41,6 +41,16 @@ namespace Jinete.Controllers
                 ApplicationUser _user = cam.ApplicationUser;
                 camView._camera = cam;
                 camView._username = _user.FirstName + " " + _user.LastName;
+                camView._lastcheckout = cam.Checkouts
+                    .OrderBy(x => x.dtCheckedOut)
+                    .LastOrDefault() == null ? null :
+                        cam.Checkouts.OrderBy(x => x.dtCheckedOut)
+                        .Select(x => new CheckoutViewModel
+                        {
+                            dtCheckedOut = x.dtCheckedOut,
+                            dtReturned = x.dtReturned,
+                            Username = x.ApplicationUser.FirstName + " " + x.ApplicationUser.LastName
+                        }).LastOrDefault();
                 camView._sold = cam.Sale ?? null;
                 cameraList.Add(camView);
             }

@@ -41,6 +41,16 @@ namespace Jinete.Controllers
                 ApplicationUser _user = print.ApplicationUser;
                 printView._printer = print;
                 printView._username = _user.FirstName + " " + _user.LastName;
+                printView._lastcheckout = print.Checkouts
+                    .OrderBy(x => x.dtCheckedOut)
+                    .LastOrDefault() == null ? null :
+                        print.Checkouts.OrderBy(x => x.dtCheckedOut)
+                        .Select(x => new CheckoutViewModel
+                        {
+                            dtCheckedOut = x.dtCheckedOut,
+                            dtReturned = x.dtReturned,
+                            Username = x.ApplicationUser.FirstName + " " + x.ApplicationUser.LastName
+                        }).LastOrDefault();
                 printView._sold = print.Sale ?? null;
                 printerList.Add(printView);
             }

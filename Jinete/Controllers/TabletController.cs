@@ -41,6 +41,16 @@ namespace Jinete.Controllers
                 ApplicationUser _user = tab.ApplicationUser;
                 tabView._tablet = tab;
                 tabView._username = _user.FirstName + " " + _user.LastName;
+                tabView._lastcheckout = tab.Checkouts
+                    .OrderBy(x => x.dtCheckedOut)
+                    .LastOrDefault() == null ? null :
+                        tab.Checkouts.OrderBy(x => x.dtCheckedOut)
+                        .Select(x => new CheckoutViewModel
+                        {
+                            dtCheckedOut = x.dtCheckedOut,
+                            dtReturned = x.dtReturned,
+                            Username = x.ApplicationUser.FirstName + " " + x.ApplicationUser.LastName
+                        }).LastOrDefault();
                 tabView._sold = tab.Sale ?? null;
                 tabletList.Add(tabView);
             }

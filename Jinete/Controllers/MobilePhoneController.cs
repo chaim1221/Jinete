@@ -41,6 +41,16 @@ namespace Jinete.Controllers
                 ApplicationUser _user = mobile.ApplicationUser;
                 mobileView._mobilePhone = mobile;
                 mobileView._username = _user.FirstName + " " + _user.LastName;
+                mobileView._lastcheckout = mobile.Checkouts
+                    .OrderBy(x => x.dtCheckedOut)
+                    .LastOrDefault() == null ? null :
+                        mobile.Checkouts.OrderBy(x => x.dtCheckedOut)
+                        .Select(x => new CheckoutViewModel
+                        {
+                            dtCheckedOut = x.dtCheckedOut,
+                            dtReturned = x.dtReturned,
+                            Username = x.ApplicationUser.FirstName + " " + x.ApplicationUser.LastName
+                        }).LastOrDefault();
                 mobileView._sold = mobile.Sale ?? null;
                 mobilePhoneList.Add(mobileView);
             }
