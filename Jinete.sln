@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
-VisualStudioVersion = 12.0.21005.1
+VisualStudioVersion = 12.0.30110.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Jinete", "Jinete\Jinete.csproj", "{9D330046-2D0B-43B0-A63F-8E59672053B1}"
 EndProject
@@ -10,6 +10,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SQL", "SQL", "{927344E5-FF0
 		SQL\ForeignKeyNightmare.sql = SQL\ForeignKeyNightmare.sql
 		SQL\SQLQuery1.sql = SQL\SQLQuery1.sql
 	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Jinete.Test", "Jinete.Test\Jinete.Test.csproj", "{E6685EE3-8F0A-4F3F-A3C1-9E80F2F3F317}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{9D330046-2D0B-43B0-A63F-8E59672053B1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9D330046-2D0B-43B0-A63F-8E59672053B1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9D330046-2D0B-43B0-A63F-8E59672053B1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E6685EE3-8F0A-4F3F-A3C1-9E80F2F3F317}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E6685EE3-8F0A-4F3F-A3C1-9E80F2F3F317}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E6685EE3-8F0A-4F3F-A3C1-9E80F2F3F317}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E6685EE3-8F0A-4F3F-A3C1-9E80F2F3F317}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

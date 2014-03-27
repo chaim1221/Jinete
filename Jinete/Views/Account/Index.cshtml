@@ -14,13 +14,10 @@
     <h3>Users Table</h3>
     <table>
         <tr>
-            <th></th>
-            <th>
-                UserName
-            </th>
-            <th>
-                Email
-            </th>
+            <th>Actions</th>
+            <th>Username</th>
+            <th>Full Name</th>
+            <th>Email</th>
         </tr>
 
         @foreach (UserSettingsViewModel item in Model)
@@ -32,6 +29,9 @@
                 </td>
                 <td class="tb-cell-bigger-text">
                     @item.UserName
+                </td>
+                <td class="tb-cell-bigger-text">
+                    @item.UserFullName
                 </td>
                 <td class="tb-cell-bigger-text">
                     @item.Email

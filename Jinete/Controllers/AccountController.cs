@@ -39,6 +39,7 @@ namespace Jinete.Controllers
                 {
                     ProviderUserKey = list.Id,
                     UserName = list.UserName,
+                    UserFullName = list.FirstName + " " + list.LastName,
                     Email = list.Email
                 }
                 );
