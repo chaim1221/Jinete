@@ -96,7 +96,17 @@ namespace Jinete.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser() { UserName = model.UserName };
+                var user = new ApplicationUser() { 
+                    UserName = model.UserName,
+                    Address = model.Address,
+                    City = model.City,
+                    Email = model.Email,
+                    FirstName = model.FirstName,
+                    LastName = model.LastName,
+                    Phone = model.Phone,
+                    State = model.State,
+                    Zip = model.Zip
+                };
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
@@ -343,7 +353,18 @@ namespace Jinete.Controllers
                 {
                     return View("ExternalLoginFailure");
                 }
-                var user = new ApplicationUser() { UserName = model.UserName, Email = model.Email };
+                var user = new ApplicationUser()
+                    {
+                        UserName = model.UserName,
+                        Address = model.Address,
+                        City = model.City,
+                        State = model.State,
+                        Zip = model.Zip,
+                        Email = model.Email,
+                        FirstName = model.FirstName,
+                        LastName = model.LastName,
+                        Phone = model.Phone
+                    };
                 var result = await UserManager.CreateAsync(user);
                 if (result.Succeeded)
                 {

@@ -12,7 +12,7 @@ namespace Jinete.Migrations
     {
         public Configuration()
         {
-            AutomaticMigrationsEnabled = false;
+            AutomaticMigrationsEnabled = true;
         }
 
         bool AddUserAndRole(ApplicationDbContext context)
@@ -23,19 +23,20 @@ namespace Jinete.Migrations
                (new RoleStore<IdentityRole>(context));
             ir = rm.Create(new IdentityRole("Administrator"));
             ir = rm.Create(new IdentityRole("Manager"));
+            ir = rm.Create(new IdentityRole("User"));
             var um = new UserManager<ApplicationUser>(
                 new UserStore<ApplicationUser>(context));
             var user = new ApplicationUser()
             {
-                UserName = "hakcer",
-                Email = "kcbridges@casa-latina.org",
-                FirstName = "KC",
-                LastName = "Bridges",
-                Phone = "360-421-1827",
-                Address = "where the wind takes me",
-                City = "Seattle",
-                State = "WA",
-                Zip = "98144"
+                UserName = "",
+                Email = "",
+                FirstName = "",
+                LastName = "",
+                Phone = "",
+                Address = "",
+                City = "",
+                State = "",
+                Zip = ""
             };
             ir = um.Create(user, "");
             if (ir.Succeeded == false)
